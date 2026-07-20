@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNAM Inteligente: Propuesta para Rectoría | SintelIA</title>
+<meta name="description" content="368 mil estudiantes, 19 portales, cero inteligencia artificial institucional de cara al estudiante. Propuesta de capa de IA para la UNAM, verificada con fuentes oficiales, julio 2026.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="UNAM Inteligente: Propuesta para Rectoría">
+<meta property="og:description" content="368 mil estudiantes, 19 portales, cero inteligencia artificial institucional. La capa de IA que la máxima casa de estudios merece.">
+<meta property="og:image" content="./assets/hero-biblioteca-central.jpg">
+<meta property="og:locale" content="es_MX">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UNAM Inteligente: Propuesta para Rectoría">
+<meta name="twitter:description" content="368 mil estudiantes, 19 portales, cero inteligencia artificial institucional. La capa de IA que la máxima casa de estudios merece.">
+<meta name="twitter:image" content="./assets/hero-biblioteca-central.jpg">
+
+<link rel="stylesheet" href="./assets/vendor/satoshi.css">
+<link rel="stylesheet" href="./assets/vendor/geist-400.css">
+<link rel="stylesheet" href="./assets/vendor/geist-500.css">
+<link rel="stylesheet" href="./assets/vendor/geist-600.css">
+<link rel="stylesheet" href="./assets/vendor/geist-700.css">
+
+<script src="./assets/vendor/tailwindcss.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          azul: '#002B7A',
+          'azul-deep': '#001742',
+          oro: '#D59F0F',
+          'oro-soft': '#F3E3B3',
+          papel: '#FBF8F1',
+          tinta: '#101A2E',
+          'tinta-muted': '#4A5568',
+          danger: '#B42318',
+        },
+        fontFamily: {
+          display: ['Satoshi', 'system-ui', 'sans-serif'],
+          sans: ['"Geist Sans"', 'system-ui', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<script src="./assets/vendor/gsap.min.js"></script>
+<script src="./assets/vendor/ScrollTrigger.min.js"></script>
+<script src="./assets/vendor/lenis.min.js"></script>
+
+<style>
+  :root{
+    --unam-azul:#002B7A;
+    --unam-azul-deep:#001742;
+    --unam-oro:#D59F0F;
+    --unam-oro-soft:#F3E3B3;
+    --papel:#FBF8F1;
+    --tinta:#101A2E;
+    --tinta-muted:#4A5568;
+    --danger:#B42318;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:auto; }
+  html.lenis, html.lenis body{ height:auto; }
+  .lenis.lenis-smooth{ scroll-behavior:auto; }
+  .lenis.lenis-stopped{ overflow:hidden; }
+  body{
+    font-family:'Geist Sans', system-ui, sans-serif;
+    background:var(--papel);
+    color:var(--tinta);
+    overflow-x:hidden;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    font-variant-numeric:lining-nums tabular-nums;
+  }
+  h1,h2,h3,.font-display{ font-family:'Satoshi', system-ui, sans-serif; font-weight:900; line-height:1.08; }
+  .measure{ max-width:70ch; }
+  .section{ padding:6.5rem 1.5rem; max-width:1280px; margin:0 auto; }
+  @media(max-width:768px){ .section{ padding:4.5rem 1.25rem; } }
+
+  .badge{
+    display:inline-flex; align-items:center; gap:.4rem;
+    background:var(--oro-soft, #F3E3B3); color:#7A5A08;
+    padding:.4rem 1rem; border-radius:9999px;
+    font-size:.75rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:1.25rem;
+  }
+  .badge--dark{ background:rgba(255,255,255,.12); color:var(--unam-oro); }
+
+  .cta{
+    display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+    background:var(--unam-oro); color:var(--unam-azul-deep);
+    padding:1rem 2rem; min-height:44px; border-radius:9999px;
+    font-weight:700; font-size:1rem; text-decoration:none;
+    border:2px solid transparent;
+    transition:background-color .3s cubic-bezier(.22,1,.36,1), color .3s, border-color .3s, transform .3s;
+  }
+  .cta:hover{ background:var(--unam-azul-deep); color:var(--unam-oro); border-color:var(--unam-oro); transform:scale(1.02); }
+  .cta--ghost{
+    background:transparent; color:var(--unam-azul); border-color:var(--unam-azul);
+    padding:1rem 1.75rem; min-height:44px;
+  }
+  .cta--ghost:hover{ background:var(--unam-azul); color:#fff; }
+  .cta--nav{ padding:.65rem 1.25rem; font-size:.85rem; }
+
+  /* Fallback de tamaño de iconos: evita SVG gigantes si el CDN de Tailwind tarda en cargar (FOUC) */
+  svg.w-3{ width:.75rem; height:.75rem; }
+  svg.w-4{ width:1rem; height:1rem; }
+  svg.w-5{ width:1.25rem; height:1.25rem; }
+  svg.w-6{ width:1.5rem; height:1.5rem; }
+  svg[class*="w-"]{ flex:none; }
+
+  .card{
+    background:#fff; border-radius:1.25rem; padding:2rem;
+    border:1px solid rgba(0,43,122,.08);
+    box-shadow:0 1px 3px rgba(0,0,0,.04), 0 10px 28px rgba(0,43,122,.04);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .card:hover{ transform:translateY(-3px); box-shadow:0 6px 16px rgba(0,0,0,.06), 0 22px 48px rgba(0,43,122,.07); }
+
+  .gold-line{ width:2.5rem; height:3px; background:var(--unam-oro); border-radius:2px; margin-bottom:1rem; }
+
+  .icon-chip{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:2.75rem; height:2.75rem; border-radius:.85rem;
+    background:rgba(0,43,122,.06); color:var(--unam-azul); flex-shrink:0;
+  }
+
+  @keyframes float{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } }
+  .float{ animation:float 6s ease-in-out infinite; }
+  @keyframes scroll-cue{ 0%,100%{ transform:translateY(0); opacity:.55; } 50%{ transform:translateY(8px); opacity:1; } }
+  .scroll-cue{ animation:scroll-cue 2.2s ease-in-out infinite; }
+  @keyframes pulse-danger{
+    0%,100%{ box-shadow:0 0 0 0 rgba(180,35,24,.35); }
+    50%{ box-shadow:0 0 0 6px rgba(180,35,24,0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .float, .scroll-cue, .dominio-card.flash-red{ animation:none !important; }
+  }
+
+  .split-word{ display:inline-block; }
+
+  /* ---------- Hero media ---------- */
+  .hero-media{
+    position:relative; border-radius:1.75rem; overflow:hidden;
+    aspect-ratio:4/5; max-height:560px;
+    background:linear-gradient(160deg, var(--unam-azul) 0%, var(--unam-azul-deep) 100%);
+    box-shadow:0 24px 64px rgba(0,23,66,.28);
+  }
+  .hero-media picture, .hero-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .hero-media .media-fallback-content{ display:none; }
+  .hero-media.media-fallback .media-fallback-content{
+    display:flex; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center;
+    gap:.75rem; text-align:center; padding:2rem;
+  }
+  .hero-media.media-fallback::before{
+    content:''; position:absolute; inset:0; opacity:.16;
+    background-image:
+      repeating-linear-gradient(45deg, var(--unam-oro) 0 2px, transparent 2px 34px),
+      repeating-linear-gradient(-45deg, #fff 0 2px, transparent 2px 34px);
+  }
+  .fallback-mark{
+    width:64px; height:64px; border-radius:1rem; background:var(--unam-oro);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Satoshi',sans-serif; font-weight:900; color:var(--unam-azul-deep); font-size:1.5rem;
+    position:relative; z-index:1;
+  }
+  .fallback-wordmark{ position:relative; z-index:1; color:#fff; font-family:'Satoshi',sans-serif; font-weight:900; font-size:1.35rem; }
+  .fallback-sub{ position:relative; z-index:1; color:var(--unam-oro-soft); font-size:.8rem; max-width:24ch; }
+
+  /* ---------- Mosaico texture (S2) ---------- */
+  .textura-mosaico{
+    background-image:url('./assets/textura-mosaico-ogorman.jpg');
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+
+  /* ---------- Domain map (S2) ---------- */
+  .mapa-pin-section{ position:relative; background:var(--unam-azul-deep); color:#fff; overflow:hidden; }
+  .dominio-grid{ display:grid; gap:1rem; grid-template-columns:repeat(1,minmax(0,1fr)); }
+  @media(min-width:640px){ .dominio-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media(min-width:1024px){ .dominio-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+  .dominio-card{
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09);
+    border-radius:1rem; padding:1.25rem;
+    opacity:.12; transform:translateY(18px);
+    transition:opacity .45s ease, transform .45s ease, border-color .3s, background-color .3s;
+  }
+  .dominio-card.is-visible{ opacity:1; transform:translateY(0); }
+  .dominio-card.span-2{ grid-column:span 1; }
+  @media(min-width:640px){ .dominio-card.span-2{ grid-column:span 2; } }
+  .dominio-card.flash-red{ border-color:var(--danger); background:rgba(180,35,24,.14); animation:pulse-danger 2.4s ease-in-out infinite; }
+  .dominio-host{ font-weight:700; font-size:.95rem; color:#fff; word-break:break-word; }
+  .dominio-desc{ font-size:.82rem; color:#B8C2DE; margin-top:.4rem; line-height:1.55; }
+  .dominio-badge{
+    display:inline-flex; align-items:center; gap:.3rem;
+    font-size:.68rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
+    padding:.25rem .55rem; border-radius:9999px; margin-bottom:.6rem;
+  }
+  .dominio-badge--danger{ background:rgba(180,35,24,.22); color:#FF9C8F; }
+  .dominio-badge--warn{ background:rgba(213,159,15,.16); color:var(--unam-oro); }
+  .dominio-badge--live{ background:rgba(255,255,255,.08); color:#B8C2DE; }
+
+  /* ---------- Connecting line S5→S6 ---------- */
+  .connecting-line-wrap{ position:relative; height:2px; max-width:1280px; margin:0 auto; padding:0 1.5rem; }
+  .connecting-line{
+    height:2px; width:100%;
+    background:linear-gradient(90deg, transparent 0%, var(--unam-oro) 50%, transparent 100%);
+    transform:scaleX(0); transform-origin:left;
+  }
+
+  /* ---------- Stat cards (S4): gold-line SIBLING, never same node as number ---------- */
+  .stat-card{
+    background:#fff; border-radius:1.25rem; padding:2rem;
+    border:1px solid rgba(0,43,122,.08);
+  }
+  .stat-number{ font-family:'Satoshi',sans-serif; font-weight:900; font-size:3rem; line-height:1; color:var(--unam-azul); }
+  @media(min-width:768px){ .stat-number{ font-size:3.5rem; } }
+
+  /* ---------- WhatsApp mockup (CSS, datos verificados contra dgae.unam.mx/tramites) ---------- */
+  .whatsapp-mock{ position:relative; max-width:340px; margin:0 auto; }
+  .wa-frame{
+    background:#ECE5DD; border-radius:1.5rem; overflow:hidden;
+    box-shadow:0 20px 48px rgba(0,23,66,.18); border:1px solid rgba(0,43,122,.1);
+  }
+  .wa-header{
+    display:flex; align-items:center; gap:.7rem;
+    background:var(--unam-azul-deep); color:#fff; padding:.8rem 1rem;
+  }
+  .wa-avatar{
+    width:36px; height:36px; border-radius:50%; flex:none;
+    background:var(--unam-oro); color:var(--unam-azul-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Satoshi',sans-serif; font-weight:900; font-size:.8rem;
+  }
+  .wa-header-name{ font-weight:700; font-size:.9rem; line-height:1.2; }
+  .wa-header-status{ font-size:.7rem; color:var(--unam-oro-soft); }
+  .wa-chat{ display:flex; flex-direction:column; gap:.6rem; padding:1.1rem .9rem 1.3rem; }
+  .wa-bubble{ max-width:85%; padding:.55rem .8rem; border-radius:.8rem; font-size:.8rem; line-height:1.45; color:#111B21; box-shadow:0 1px 1px rgba(0,0,0,.08); }
+  .wa-bubble--in{ background:#fff; align-self:flex-start; border-top-left-radius:.2rem; }
+  .wa-bubble--out{ background:#D9FDD3; align-self:flex-end; border-top-right-radius:.2rem; }
+  .wa-meta{ display:block; text-align:right; font-size:.62rem; color:#667781; margin-top:.2rem; }
+  .wa-src{ display:block; font-size:.68rem; color:#027EB5; margin-top:.25rem; font-style:italic; }
+
+  table.tramites-table{ width:100%; border-collapse:collapse; }
+  table.tramites-table th{ text-align:left; font-weight:700; }
+  table.tramites-table td, table.tramites-table th{ padding:.85rem 1rem; }
+  table.tramites-table tbody tr{ border-bottom:1px solid rgba(0,43,122,.08); }
+
+  /* ---------- Demo unam.mx (S5.5) ---------- */
+  .demo-section{ background:var(--unam-azul-deep); color:#fff; }
+  .demo-browser{
+    max-width:960px; margin:0 auto; border-radius:1rem; overflow:hidden;
+    background:#fff; box-shadow:0 24px 64px rgba(0,0,0,.4);
+    border:1px solid rgba(255,255,255,.12);
+  }
+  .demo-browser-bar{
+    display:flex; align-items:center; gap:.5rem;
+    background:#F0EBE0; padding:.6rem .9rem; border-bottom:1px solid rgba(0,43,122,.1);
+  }
+  .demo-dot{ width:10px; height:10px; border-radius:50%; flex:none; }
+  .demo-url{
+    flex:1; margin-left:.5rem; background:#fff; border-radius:.5rem;
+    font-size:.75rem; color:var(--tinta-muted); padding:.3rem .8rem;
+    display:flex; align-items:center; gap:.4rem; min-width:0;
+  }
+  .demo-url span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .demo-preview{ position:relative; height:420px; overflow:hidden; background:var(--papel); }
+  .demo-preview iframe{
+    width:200%; height:200%; border:0; pointer-events:none;
+    transform:scale(.5); transform-origin:top left;
+  }
+  .demo-preview::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(to bottom, transparent 62%, rgba(0,23,66,.28) 100%);
+    pointer-events:none;
+  }
+  @media(max-width:768px){
+    .demo-preview{ height:300px; }
+    .demo-preview iframe{ width:285%; height:285%; transform:scale(.35); }
+  }
+  .demo-note{ font-size:.78rem; color:#8E9BBE; max-width:56ch; margin:1.25rem auto 0; line-height:1.55; }
+
+  /* ---------- Overlay fullscreen de la demo ---------- */
+  .demo-overlay{
+    position:fixed; inset:0; z-index:100;
+    background:rgba(0,23,66,.88); backdrop-filter:blur(8px);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none;
+    transition:opacity .3s cubic-bezier(.22,1,.36,1);
+  }
+  .demo-overlay.is-open{ opacity:1; pointer-events:auto; }
+  .demo-overlay[hidden]{ display:none; }
+  .demo-overlay-frame{
+    position:absolute; inset:3.6rem 0 0 0; background:var(--papel);
+  }
+  .demo-overlay-frame iframe{ width:100%; height:100%; border:0; display:block; }
+  .demo-overlay-close{
+    position:absolute; top:.55rem; right:1rem; z-index:2;
+    display:inline-flex; align-items:center; gap:.5rem;
+    background:var(--unam-azul-deep); color:#fff; border:2px solid rgba(255,255,255,.25);
+    padding:.65rem 1.2rem; min-height:44px; border-radius:9999px;
+    font-family:'Geist Sans',sans-serif; font-weight:700; font-size:.85rem; cursor:pointer;
+    transition:background-color .25s, transform .25s;
+  }
+  .demo-overlay-close:hover{ background:var(--unam-oro); color:var(--unam-azul-deep); transform:scale(1.04); }
+  .demo-overlay-close:focus-visible{ outline:3px solid var(--unam-oro); outline-offset:2px; }
+  @media(prefers-reduced-motion: reduce){
+    .demo-overlay, .demo-overlay-close{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sprite de iconos Phosphor (stroke visual ~1.5, regular weight, currentColor) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-bank" viewBox="0 0 256 256"><path d="M24,104H48v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16H208V104h24a8,8,0,0,0,4.19-14.81l-104-64a8,8,0,0,0-8.38,0l-104,64A8,8,0,0,0,24,104Zm40,0H96v64H64Zm80,0v64H112V104Zm48,64H160V104h32ZM128,41.39,203.74,88H52.26ZM248,208a8,8,0,0,1-8,8H16a8,8,0,0,1,0-16H240A8,8,0,0,1,248,208Z"/></symbol>
+    <symbol id="i-graduation-cap" viewBox="0 0 256 256"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"/></symbol>
+    <symbol id="i-scroll" viewBox="0 0 256 256"><path d="M96,104a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H104A8,8,0,0,1,96,104Zm8,40h64a8,8,0,0,0,0-16H104a8,8,0,0,0,0,16Zm128,48a32,32,0,0,1-32,32H88a32,32,0,0,1-32-32V64a16,16,0,0,0-32,0c0,5.74,4.83,9.62,4.88,9.66h0A8,8,0,0,1,24,88a7.89,7.89,0,0,1-4.79-1.61h0C18.05,85.54,8,77.61,8,64A32,32,0,0,1,40,32H176a32,32,0,0,1,32,32V168h8a8,8,0,0,1,4.8,1.6C222,170.46,232,178.39,232,192ZM96.26,173.48A8.07,8.07,0,0,1,104,168h88V64a16,16,0,0,0-16-16H67.69A31.71,31.71,0,0,1,72,64V192a16,16,0,0,0,32,0c0-5.74-4.83-9.62-4.88-9.66A7.82,7.82,0,0,1,96.26,173.48ZM216,192a12.58,12.58,0,0,0-3.23-8h-94a26.92,26.92,0,0,1,1.21,8,31.82,31.82,0,0,1-4.29,16H200A16,16,0,0,0,216,192Z"/></symbol>
+    <symbol id="i-book-open" viewBox="0 0 256 256"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></symbol>
+    <symbol id="i-shield-check" viewBox="0 0 256 256"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></symbol>
+    <symbol id="i-lock-key" viewBox="0 0 256 256"><path d="M128,112a28,28,0,0,0-8,54.83V184a8,8,0,0,0,16,0V166.83A28,28,0,0,0,128,112Zm0,40a12,12,0,1,1,12-12A12,12,0,0,1,128,152Zm80-72H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></symbol>
+    <symbol id="i-whatsapp-logo" viewBox="0 0 256 256"><path d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.61-9.74,23,11.48A24,24,0,0,1,152,176ZM128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Z"/></symbol>
+    <symbol id="i-file-text" viewBox="0 0 256 256"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></symbol>
+    <symbol id="i-warning-octagon" viewBox="0 0 256 256"><path d="M120,136V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0ZM232,91.55v72.9a15.86,15.86,0,0,1-4.69,11.31l-51.55,51.55A15.86,15.86,0,0,1,164.45,232H91.55a15.86,15.86,0,0,1-11.31-4.69L28.69,175.76A15.86,15.86,0,0,1,24,164.45V91.55a15.86,15.86,0,0,1,4.69-11.31L80.24,28.69A15.86,15.86,0,0,1,91.55,24h72.9a15.86,15.86,0,0,1,11.31,4.69l51.55,51.55A15.86,15.86,0,0,1,232,91.55Zm-16,0L164.45,40H91.55L40,91.55v72.9L91.55,216h72.9L216,164.45ZM128,160a12,12,0,1,0,12,12A12,12,0,0,0,128,160Z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 256 256"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol>
+    <symbol id="i-chats-circle" viewBox="0 0 256 256"><path d="M232.07,186.76a80,80,0,0,0-62.5-114.17A80,80,0,1,0,23.93,138.76l-7.27,24.71a16,16,0,0,0,19.87,19.87l24.71-7.27a80.39,80.39,0,0,0,25.18,7.35,80,80,0,0,0,108.34,40.65l24.71,7.27a16,16,0,0,0,19.87-19.86ZM62,159.5a8.28,8.28,0,0,0-2.26.32L32,168l8.17-27.76a8,8,0,0,0-.63-6,64,64,0,1,1,26.26,26.26A8,8,0,0,0,62,159.5Zm153.79,28.73L224,216l-27.76-8.17a8,8,0,0,0-6,.63,64.05,64.05,0,0,1-85.87-24.88A79.93,79.93,0,0,0,174.7,89.71a64,64,0,0,1,41.75,92.48A8,8,0,0,0,215.82,188.23Z"/></symbol>
+    <symbol id="i-magnifying-glass" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></symbol>
+    <symbol id="i-map-pin" viewBox="0 0 256 256"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></symbol>
+    <symbol id="i-calendar-blank" viewBox="0 0 256 256"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></symbol>
+    <symbol id="i-robot" viewBox="0 0 256 256"><path d="M200,48H136V16a8,8,0,0,0-16,0V48H56A32,32,0,0,0,24,80V192a32,32,0,0,0,32,32H200a32,32,0,0,0,32-32V80A32,32,0,0,0,200,48Zm16,144a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V80A16,16,0,0,1,56,64H200a16,16,0,0,1,16,16Zm-52-56H92a28,28,0,0,0,0,56h72a28,28,0,0,0,0-56Zm-24,16v24H116V152ZM80,164a12,12,0,0,1,12-12h8v24H92A12,12,0,0,1,80,164Zm84,12h-8V152h8a12,12,0,0,1,0,24ZM72,108a12,12,0,1,1,12,12A12,12,0,0,1,72,108Zm88,0a12,12,0,1,1,12,12A12,12,0,0,1,160,108Z"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
+    <symbol id="i-caret-down" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 256 256"><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 256 256"><path d="M223.68,66.15,135.68,18h0a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32h0l80.34,44L128,120,47.66,76ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z"/></symbol>
+    <symbol id="i-x-circle" viewBox="0 0 256 256"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol>
+  </defs>
+</svg>
+
+<!-- ====== NAV ====== -->
+<nav class="fixed top-0 w-full z-50 px-5 sm:px-8 py-3.5 flex justify-between items-center" style="background:rgba(251,248,241,.9);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,43,122,.06);">
+  <div class="flex items-center gap-2.5">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,var(--unam-azul),var(--unam-azul-deep));">
+      <span class="text-oro font-black text-xs font-display">IA</span>
+    </div>
+    <span class="font-bold text-sm tracking-tight text-azul font-display">UNAM <span class="text-oro">Inteligente</span></span>
+  </div>
+  <a href="#" data-cta="whatsapp" class="cta cta--nav">
+    <svg class="w-4 h-4" aria-hidden="true"><use href="#i-whatsapp-logo"/></svg>
+    Agendar demo
+  </a>
+</nav>
+
+<!-- ====== S1 · HERO ====== -->
+<header class="relative min-h-screen flex items-center" style="padding-top:5rem;background:radial-gradient(ellipse 70% 55% at 25% 30%, rgba(213,159,15,.07) 0%, transparent 60%), radial-gradient(ellipse 55% 45% at 78% 20%, rgba(0,43,122,.06) 0%, transparent 60%), var(--papel);">
+  <div class="section grid lg:grid-cols-2 gap-12 items-center">
+    <div class="hero-copy">
+      <span class="badge hero-badge">Propuesta institucional · SintelIA</span>
+      <h1 id="hero-title" class="text-azul" style="font-size:clamp(2.2rem,5vw,3.6rem);">
+        La máxima casa de estudios<br>merece estar disponible<br><span class="text-oro">24 horas al día.</span>
+      </h1>
+      <p class="hero-sub measure text-lg mt-6" style="color:var(--tinta-muted);">
+        La UNAM atiende a <strong class="text-azul">más de 368 mil estudiantes</strong> en <strong class="text-azul">más de 30 facultades y escuelas</strong>. Solo en 2026, <strong class="text-azul">191,306 aspirantes</strong> compitieron por <strong class="text-azul">50,113 lugares</strong>. Toda esa información se navega hoy a mano, en más de una decena de portales distintos. Sin un solo asistente que los conecte.
+      </p>
+      <p class="text-xs mt-3" style="color:var(--tinta-muted);">Fuente: Gaceta UNAM, inicio de semestre 2026-2 · Boletín UNAM-DGCS-413, 16 de julio de 2026.</p>
+      <div class="hero-ctas flex flex-wrap gap-3 pt-6">
+        <a href="#solucion" class="cta">Ver la propuesta <svg class="w-4 h-4" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        <a href="#" data-cta="whatsapp" class="cta--ghost inline-flex items-center gap-2 rounded-full text-sm font-semibold">
+          <svg class="w-4 h-4" aria-hidden="true"><use href="#i-whatsapp-logo"/></svg> Agendar demo
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-x-6 gap-y-2 pt-6 text-sm" style="color:var(--tinta-muted);">
+        <span>368 mil estudiantes</span>
+        <span>30+ facultades y escuelas</span>
+        <span>133 licenciaturas</span>
+      </div>
+    </div>
+    <div class="hidden lg:block float">
+      <div class="hero-media">
+        <picture>
+          <source media="(max-width: 640px)" srcset="./assets/hero-biblioteca-central-4x5.jpg">
+          <img src="./assets/hero-biblioteca-central.jpg" alt="Biblioteca Central de Ciudad Universitaria, UNAM, con tratamiento duotono azul institucional" loading="eager" decoding="async"
+            onerror="this.closest('.hero-media').classList.add('media-fallback'); this.remove();">
+        </picture>
+        <div class="media-fallback-content">
+          <div class="fallback-mark">IA</div>
+          <p class="fallback-wordmark">UNAM Inteligente</p>
+          <p class="fallback-sub">Por una universidad sin filas, sin esperas, sin aspirantes desorientados.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-cue" style="color:var(--tinta-muted);">
+    <svg class="w-6 h-6" aria-hidden="true"><use href="#i-caret-down"/></svg>
+  </div>
+</header>
+
+<!-- ====== S6 · BENCHMARKS ====== -->
+<section id="benchmarks" class="bg-white">
+  <div class="section reveal-section">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="badge">La carrera ya empezó</span>
+      <h2 class="text-azul font-display" style="font-size:clamp(1.9rem,4vw,2.9rem);">La IA universitaria ya existe.<br>Falta la de la educación pública.</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+      <div class="card reveal-target">
+        <div class="font-black text-xs mb-2 tracking-wider text-oro font-display">TECNOLÓGICO DE MONTERREY</div>
+        <p class="font-bold text-lg mb-3 text-azul font-display">TECgpt</p>
+        <p class="text-sm mb-4" style="color:var(--tinta-muted);">Lanzado en septiembre de 2023: "primera universidad de Latinoamérica" con ecosistema propio de IA generativa. Al AI Day 2026: <strong class="text-azul">más de 90,000 usuarios</strong> con acceso a TECgpt.</p>
+        <p class="text-xs" style="color:var(--tinta-muted);">Fuente: conecta.tec.mx, AI Day 2026.</p>
+      </div>
+      <div class="card reveal-target">
+        <div class="font-black text-xs mb-2 tracking-wider text-oro font-display">UNIVERSITY OF MICHIGAN</div>
+        <p class="font-bold text-lg mb-3 text-azul font-display">U-M GPT + Maizey</p>
+        <p class="text-sm mb-4" style="color:var(--tinta-muted);">Suite de IA cerrada, propia: <strong class="text-azul">15,000 usuarios al día</strong> en promedio. Arquitectura "walled-off" por privacidad y control.</p>
+        <p class="text-xs" style="color:var(--tinta-muted);">Fuente: its.umich.edu/computing/ai · provost.umich.edu.</p>
+      </div>
+      <div class="card reveal-target">
+        <div class="font-black text-xs mb-2 tracking-wider text-oro font-display">HARVARD · MIT</div>
+        <p class="font-bold text-lg mb-3 text-azul font-display">AI Sandbox · ChatGPT Enterprise</p>
+        <p class="text-sm mb-4" style="color:var(--tinta-muted);">Harvard: entorno propio disponible para "all Harvard affiliated students, faculty, and staff" desde 2023. MIT: ChatGPT Enterprise para faculty.</p>
+        <p class="text-xs" style="color:var(--tinta-muted);">Fuente: huit.harvard.edu/ai-sandbox · mitsloanedtech.mit.edu.</p>
+      </div>
+    </div>
+    <div class="max-w-2xl mx-auto text-center reveal-target rounded-2xl p-8" style="background:var(--unam-azul-deep);color:#fff;">
+      <p class="text-sm mb-3" style="color:#B8C2DE;">17 de marzo de 2026 · Acuerdo rectoral</p>
+      <p class="font-display font-bold" style="font-size:1.15rem;line-height:1.5;">"No se trata únicamente de acompañar el avance de los procesos tecnológicos, sino de <span class="text-oro">conducir su evolución</span>."</p>
+      <p class="text-sm mt-3" style="color:#B8C2DE;">Rector Leonardo Lomelí Vanegas, instalación del CCOIA, Biblioteca Central, 18 de mayo de 2026.</p>
+      <p class="mt-5 font-bold text-oro">El consejo existe. Ningún producto, todavía. La ventana está abierta — y esto es lo que cuesta no cruzarla.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ====== S2 · MAPA DE DOMINIOS ====== -->
+<section id="mapa-dominios" class="mapa-pin-section textura-mosaico" style="background-blend-mode:overlay;">
+  <div class="section" style="padding-top:5rem;padding-bottom:5rem;">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal-target">
+      <span class="badge badge--dark">Ground truth · verificado 2026-07-19</span>
+      <h2 class="font-display" style="font-size:clamp(1.9rem,4vw,3rem);">368 mil estudiantes. 19 portales.<br>Cero que hablen entre sí.</h2>
+      <p class="mt-4 text-sm" style="color:#B8C2DE;">Así se navega hoy la presencia digital de la UNAM: 19 dominios distintos, más de media docena de logins independientes, tres sitios caídos ahora mismo, un CAPTCHA aritmético y puertos que ningún estudiante debería tener que memorizar.</p>
+      <p class="text-xs mt-3" style="color:#7C89AD;">Fuente: mapa de navegación, verificación directa de 19 dominios, 2026-07-19.</p>
+    </div>
+
+    <div class="dominio-grid">
+      <div class="dominio-card span-2" data-status="warn">
+        <span class="dominio-badge dominio-badge--warn"><svg class="w-3 h-3" aria-hidden="true"><use href="#i-warning-octagon"/></svg>403 · bloqueado a bots</span>
+        <p class="dominio-host">www.dgae.unam.mx</p>
+        <p class="dominio-desc">El núcleo del dolor: trámites escolares. Responde 403 Forbidden (Cloudflare) a herramientas automatizadas; contenido solo recuperable por Wayback o rutas alternas.</p>
+      </div>
+      <div class="dominio-card is-caido" data-status="caido">
+        <span class="dominio-badge dominio-badge--danger"><svg class="w-3 h-3" aria-hidden="true"><use href="#i-x-circle"/></svg>CAÍDO · 500</span>
+        <p class="dominio-host">becas.unam.mx</p>
+        <p class="dominio-desc">Portal de Becas: error 500 "WordPress › Error" en portada y todas las secciones.</p>
+      </div>
+      <div class="dominio-card is-caido" data-status="caido">
+        <span class="dominio-badge dominio-badge--danger"><svg class="w-3 h-3" aria-hidden="true"><use href="#i-x-circle"/></svg>CAÍDO · 503 + TLS</span>
+        <p class="dominio-host">deporte.unam.mx</p>
+        <p class="dominio-desc">Deporte UNAM / Red Puma: 503 Service Unavailable, certificado TLS expirado.</p>
+      </div>
+      <div class="dominio-card is-caido" data-status="caido">
+        <span class="dominio-badge dominio-badge--danger"><svg class="w-3 h-3" aria-hidden="true"><use href="#i-x-circle"/></svg>CAÍDO · TLS inválido</span>
+        <p class="dominio-host">dgsm.unam.mx</p>
+        <p class="dominio-desc">Servicios médicos: certificado TLS inválido (ERR_TLS_CERT_ALTNAME_INVALID). El navegador ahuyenta al usuario.</p>
+      </div>
+      <div class="dominio-card" data-status="warn">
+        <span class="dominio-badge dominio-badge--warn"><svg class="w-3 h-3" aria-hidden="true"><use href="#i-warning-octagon"/></svg>Suspendido</span>
+        <p class="dominio-host">siae.dgae.unam.mx</p>
+        <p class="dominio-desc">Portal alterno SIAE (SSRE): "servicio temporalmente suspendido" (aviso literal en portada).</p>
+      </div>
+      <div class="dominio-card" data-status="warn">
+        <span class="dominio-badge dominio-badge--warn"><svg class="w-3 h-3" aria-hidden="true"><use href="#i-warning-octagon"/></svg>Falla SSL</span>
+        <p class="dominio-host">directorio.unam.mx</p>
+        <p class="dominio-desc">Directorio telefónico institucional: falla SSL al consultar.</p>
+      </div>
+      <div class="dominio-card" data-status="live">
+        <span class="dominio-badge dominio-badge--live">Vivo · CAPTCHA aritmético</span>
+        <p class="dominio-host">www.dgae-siae.unam.mx</p>
+        <p class="dominio-desc">SIAE: trayectoria, constancias, actas, titulación, seguro. Login por cuenta y NIP, con CAPTCHA aritmético.</p>
+      </div>
+      <div class="dominio-card" data-status="live">
+        <span class="dominio-badge dominio-badge--live">Vivo · login propio</span>
+        <p class="dominio-host">sigerel.dgae.unam.mx</p>
+        <p class="dominio-desc">Referencias de pago (revisión de estudios, título). Sistema de Generación de Referencias en Línea.</p>
+      </div>
+      <div class="dominio-card" data-status="live">
+        <span class="dominio-badge dominio-badge--live">Vivo · puerto :8005</span>
+        <p class="dominio-host">egreso.dgae.unam.mx<span style="color:var(--unam-oro);">:8005</span></p>
+        <p class="dominio-desc">Sistema de Citas para revisión de estudios y recepción de títulos. Puerto no estándar, login independiente.</p>
+      </div>
+      <div class="dominio-card" data-status="live">
+        <span class="dominio-badge dominio-badge--live">Vivo · login propio</span>
+        <p class="dominio-host">posgrado.dgae.unam.mx</p>
+        <p class="dominio-desc">Certificados digitales de posgrado. Login independiente al resto del ecosistema.</p>
+      </div>
+      <div class="dominio-card" data-status="live">
+        <span class="dominio-badge dominio-badge--live">Vivo · ruta alterna</span>
+        <p class="dominio-host">repositorio.dgae.unam.mx</p>
+        <p class="dominio-desc">PDFs oficiales: convocatorias, instructivos. La única ruta viva cuando dgae.unam.mx bloquea.</p>
+      </div>
+      <div class="dominio-card" data-status="live">
+        <span class="dominio-badge dominio-badge--live">Vivo</span>
+        <p class="dominio-host">primeringreso1.dgae.unam.mx</p>
+        <p class="dominio-desc">"SITIO" personal del aspirante (no confundir con el inexistente "MI Portal").</p>
+      </div>
+      <div class="dominio-card" data-status="live">
+        <span class="dominio-badge dominio-badge--live">Vivo · atención humana</span>
+        <p class="dominio-host">www.dgoae.unam.mx</p>
+        <p class="dominio-desc">Orientación vocacional. Su "Asistencia Virtual" es chat atendido por personas, con horario de oficina.</p>
+      </div>
+      <div class="dominio-card" data-status="live">
+        <span class="dominio-badge dominio-badge--live">Vivo</span>
+        <p class="dominio-host">becarios.unam.mx</p>
+        <p class="dominio-desc">Catálogo de 21 programas de becas 2025-2026, separado del Portal de Becas, que está caído.</p>
+      </div>
+      <div class="dominio-card" data-status="live">
+        <span class="dominio-badge dominio-badge--live">Vivo</span>
+        <p class="dominio-host">bidi.unam.mx</p>
+        <p class="dominio-desc">Biblioteca Digital: operativa, cientos de bases de datos y journals.</p>
+      </div>
+      <div class="dominio-card" data-status="live">
+        <span class="dominio-badge dominio-badge--live">Vivo</span>
+        <p class="dominio-host">defensoria.unam.mx</p>
+        <p class="dominio-desc">Defensoría de los Derechos Universitarios: 40 líneas telefónicas disponibles.</p>
+      </div>
+      <div class="dominio-card" data-status="live">
+        <span class="dominio-badge dominio-badge--live">Vivo · puerto :8443</span>
+        <p class="dominio-host">abogadogeneral.unam.mx<span style="color:var(--unam-oro);">:8443</span></p>
+        <p class="dominio-desc">Legislación Universitaria: 104 documentos vigentes. Puerto no estándar.</p>
+      </div>
+      <div class="dominio-card" data-status="live">
+        <span class="dominio-badge dominio-badge--live">Vivo · login propio</span>
+        <p class="dominio-host">saep.unam.mx</p>
+        <p class="dominio-desc">SIAE-P: trayectoria de posgrado. Un cuarto sistema, un cuarto login.</p>
+      </div>
+    </div>
+
+    <p class="text-center mt-10 text-sm reveal-target measure mx-auto" style="color:#B8C2DE;">
+      Titularse exige tres sistemas con tres logins distintos (SIAE, SIGEREL y el Sistema de Citas en el puerto :8005), sin un solo inicio de sesión compartido. <span style="color:var(--unam-oro);font-weight:700;">Fuente: research-unam/04-sistemas.md y 13-mapa-navegacion.md.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ====== S3 · DEAD-ENDS ====== -->
+<section id="dead-ends" class="bg-white">
+  <div class="section reveal-section">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="badge">Prueba, no opinión</span>
+      <h2 class="text-azul font-display" style="font-size:clamp(1.9rem,4vw,2.9rem);">Doce caminos que terminan<br>en nada digital.</h2>
+    </div>
+    <div class="overflow-x-auto rounded-2xl border border-black/5 shadow-sm max-w-4xl mx-auto reveal-target">
+      <table class="tramites-table text-sm bg-white w-full">
+        <caption class="text-left text-xs p-4" style="color:var(--tinta-muted);caption-side:top;">
+          12 puntos donde el trámite digital de la UNAM muere en teléfono, ventanilla o silencio. Fuente: research-unam/13-mapa-navegacion.md, 2026-07-19.
+        </caption>
+        <thead style="background:var(--unam-azul);color:#fff;">
+          <tr>
+            <th scope="col" class="font-bold">Trámite / portal</th>
+            <th scope="col" class="font-bold hidden sm:table-cell">Punto exacto del dead-end</th>
+            <th scope="col" class="font-bold text-right">Con UNAM Inteligente</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="font-semibold text-azul">dgae.unam.mx</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">Todo el dominio responde 403 a herramientas automatizadas</td><td class="text-right font-bold text-oro">WhatsApp · 8s</td></tr>
+          <tr><td class="font-semibold text-azul">becas.unam.mx</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">Error 500 WordPress en portada y todas las secciones</td><td class="text-right font-bold text-oro">WhatsApp · 8s</td></tr>
+          <tr><td class="font-semibold text-azul">deporte.unam.mx</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">503 + certificado TLS expirado</td><td class="text-right font-bold text-oro">WhatsApp · 8s</td></tr>
+          <tr><td class="font-semibold text-azul">Costo del título</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">"consultarlo en la oficina de servicios escolares… de su escuela"</td><td class="text-right font-bold text-oro">WhatsApp · 8s</td></tr>
+          <tr><td class="font-semibold text-azul">Posgrado, aspirantes</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">"Ni los Programas de Posgrado ni la DGAE brindarán retroalimentación alguna"</td><td class="text-right font-bold text-oro">WhatsApp · 8s</td></tr>
+          <tr><td class="font-semibold text-azul">Titulación (DCyCD)</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">Entrega de documentos solo presencial, con identificación y fotocopia</td><td class="text-right font-bold text-oro">WhatsApp · 8s</td></tr>
+          <tr><td class="font-semibold text-azul">TRAMITEL</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">Solo por teléfono, horario 9:00–15:00 y 17:00–18:00; una línea histórica era para FAX</td><td class="text-right font-bold text-oro">WhatsApp · 8s</td></tr>
+          <tr><td class="font-semibold text-azul">Homologación / Título en Trámite</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">Formato presencial; "no puede ir dirigida A QUIEN CORRESPONDA"</td><td class="text-right font-bold text-oro">WhatsApp · 8s</td></tr>
+          <tr><td class="font-semibold text-azul">DGOAE "Asistencia Virtual"</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">Chat atendido por personas, horario de oficina</td><td class="text-right font-bold text-oro">WhatsApp · 8s</td></tr>
+          <tr><td class="font-semibold text-azul">Certificados de bachillerato (ENP)</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">"cuatro fotografías… ovaladas" impresas en papel mate</td><td class="text-right font-bold text-oro">WhatsApp · 8s</td></tr>
+          <tr><td class="font-semibold text-azul">dgsm.unam.mx</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">Certificado TLS inválido</td><td class="text-right font-bold text-oro">WhatsApp · 8s</td></tr>
+          <tr><td class="font-semibold text-azul">Generaciones pre-1970</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">"serás informado por correo electrónico o por teléfono"</td><td class="text-right font-bold text-oro">WhatsApp · 8s</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ====== S4 · TRÁMITES REALES ====== -->
+<section id="tramites" class="textura-mosaico" style="background-color:var(--unam-oro-soft); background-blend-mode:soft-light;">
+  <div class="section reveal-section">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="badge">Tiempos oficiales · dgae.unam.mx</span>
+      <h2 class="text-azul font-display" style="font-size:clamp(1.9rem,4vw,2.8rem);">Lo que tarda cada trámite, en las palabras exactas de la DGAE.</h2>
+      <p class="mt-3 text-sm" style="color:var(--tinta-muted);">Fuente: dgae.unam.mx/tramites, vía Wayback Machine (snapshot 2026-06-21).</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto mb-10">
+      <div class="stat-card reveal-target">
+        <div class="gold-line"></div>
+        <div class="stat-number" data-target="25" data-suffix="">0</div>
+        <p class="text-sm mt-3" style="color:var(--tinta-muted);"><strong class="text-azul">días hábiles</strong> para Título, Grado o Diploma: "a los 25 días hábiles posteriores a la fecha de recepción de la carpeta".</p>
+      </div>
+      <div class="stat-card reveal-target">
+        <div class="gold-line"></div>
+        <div class="stat-number" style="font-size:2.75rem;">2–5</div>
+        <p class="text-sm mt-3" style="color:var(--tinta-muted);"><strong class="text-azul">días hábiles</strong> para certificación de copias (títulos, actas, certificados).</p>
+      </div>
+      <div class="stat-card reveal-target">
+        <div class="gold-line"></div>
+        <div class="stat-number" data-target="3" data-suffix="">0</div>
+        <p class="text-sm mt-3" style="color:var(--tinta-muted);"><strong class="text-azul">días hábiles</strong> para constancia de Homologación: "si contamos con tus datos en el sistema".</p>
+      </div>
+      <div class="stat-card reveal-target">
+        <div class="gold-line"></div>
+        <div class="stat-number" data-target="3" data-suffix="">0</div>
+        <p class="text-sm mt-3" style="color:var(--tinta-muted);"><strong class="text-azul">días hábiles</strong> para constancia de Título en Trámite.</p>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto rounded-2xl border border-black/5 shadow-sm max-w-4xl mx-auto reveal-target bg-white">
+      <table class="tramites-table text-sm w-full">
+        <caption class="text-left text-xs p-4" style="color:var(--tinta-muted);caption-side:top;">
+          Otros trámites con tiempo o costo publicado. Fuente: research-unam/03-dgae-tramites.md.
+        </caption>
+        <thead style="background:var(--unam-azul);color:#fff;">
+          <tr><th scope="col" class="font-bold">Trámite</th><th scope="col" class="font-bold hidden sm:table-cell">Detalle</th><th scope="col" class="font-bold text-right">Tiempo / costo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="font-semibold text-azul">Legalización de plan de estudios</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">Depto. Planes y Programas de Estudio · $1.00 por hoja</td><td class="text-right font-bold text-azul">5 días hábiles</td></tr>
+          <tr><td class="font-semibold text-azul">Revalidación / Equivalencia (DGIRE)</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">4 UMA revisión + 3 UMA/año o 1.5 UMA/semestre + 1.5 UMA/asignatura</td><td class="text-right font-bold text-azul">15 días hábiles</td></tr>
+          <tr><td class="font-semibold text-azul">Revisión de Estudios</td><td class="hidden sm:table-cell" style="color:var(--tinta-muted);">Verifica que el expediente esté completo antes de titulación</td><td class="text-right font-bold" style="color:var(--danger);">No publicado</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ====== S5 · SOLUCIÓN ====== -->
+<section id="solucion" class="bg-white">
+  <div class="section reveal-section">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="badge">Lo que proponemos</span>
+      <h2 class="text-azul font-display" style="font-size:clamp(2rem,4vw,3.2rem);">UNAM Inteligente</h2>
+      <p class="mt-4 measure mx-auto" style="color:var(--tinta-muted);">Un asistente institucional disponible 24/7 — <strong class="text-azul">dentro del propio unam.mx</strong> y por WhatsApp — corriendo en servidores de la propia universidad. No reemplaza a las direcciones generales: responde con su información, todo el tiempo, no solo en horario de oficina.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-5 gap-10 items-center mb-14 reveal-target">
+      <div class="lg:col-span-2">
+        <div class="whatsapp-mock" role="img" aria-label="Simulación de conversación de WhatsApp con el asistente UNAM Inteligente respondiendo sobre trámites de la DGAE con fuentes oficiales">
+          <div class="wa-frame">
+            <div class="wa-header">
+              <div class="wa-avatar">IA</div>
+              <div>
+                <div class="wa-header-name">UNAM Inteligente</div>
+                <div class="wa-header-status">En línea · Asistente oficial</div>
+              </div>
+            </div>
+            <div class="wa-chat">
+              <div class="wa-bubble wa-bubble--in">Hola, ¿qué necesito para sacar mi certificado de estudios?<span class="wa-meta">13:10</span></div>
+              <div class="wa-bubble wa-bubble--out">Identificación oficial vigente o credencial UNAM + <strong>4 fotografías recientes tamaño credencial (ovaladas)</strong>. Se tramita en Servicios Escolares de tu plantel.<span class="wa-src">Fuente oficial: dgae.unam.mx/tramites</span><span class="wa-meta">13:10 ✓✓</span></div>
+              <div class="wa-bubble wa-bubble--in">¿Y mi título cuánto tarda?<span class="wa-meta">13:11</span></div>
+              <div class="wa-bubble wa-bubble--out"><strong>25 días hábiles</strong> posteriores a la recepción de la carpeta. Recolección en DCyCD, L-V 9:00–15:00 y 17:00–18:00 h.<span class="wa-src">Fuente oficial: dgae.unam.mx/tramites</span><span class="wa-meta">13:11 ✓✓</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-3 grid sm:grid-cols-2 gap-6">
+        <div class="card">
+          <div class="icon-chip mb-4"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-chats-circle"/></svg></div>
+          <h3 class="font-bold text-lg mb-2 text-azul font-display">Asistente Estudiantil 24/7</h3>
+          <p class="text-sm" style="color:var(--tinta-muted);">La "Asistencia Virtual" de la DGOAE hoy es gente, con horario de oficina. Fuera de ese horario, ninguno de los 368 mil estudiantes de la UNAM tiene a quién preguntarle.</p>
+        </div>
+        <div class="card">
+          <div class="icon-chip mb-4"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-scroll"/></svg></div>
+          <h3 class="font-bold text-lg mb-2 text-azul font-display">RAG sobre Legislación Universitaria</h3>
+          <p class="text-sm" style="color:var(--tinta-muted);">104 documentos vigentes del portal de la Abogacía General (Estatuto General, Reglamento de Exámenes, de Becas, de Servicio Social) indexados con la cita exacta del reglamento.</p>
+        </div>
+        <div class="card">
+          <div class="icon-chip mb-4"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-file-text"/></svg></div>
+          <h3 class="font-bold text-lg mb-2 text-azul font-display">Traductor de Trámites</h3>
+          <p class="text-sm" style="color:var(--tinta-muted);">Titularse exige SIAE (trayectoria), SIGEREL (pago) y el Sistema de Citas en el puerto :8005 (revisión de estudios). Tres sistemas, tres logins → una sola conversación.</p>
+        </div>
+        <div class="card">
+          <div class="icon-chip mb-4"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-shield-check"/></svg></div>
+          <h3 class="font-bold text-lg mb-2 text-azul font-display">Anti-Fraude para Aspirantes</h3>
+          <p class="text-sm" style="color:var(--tinta-muted);">"La UNAM no tiene acuerdos ni convenios con instituciones que ofrecen cursos de preparación." Una voz oficial constante en WhatsApp cierra el vacío que hoy llenan estafadores.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      <div class="card reveal-target">
+        <div class="icon-chip mb-4"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-calendar-blank"/></svg></div>
+        <h3 class="font-bold text-lg mb-2 text-azul font-display">Citas y Alertas</h3>
+        <p class="text-sm" style="color:var(--tinta-muted);">Defensoría (55 4161 6048, 40 líneas), Atención Psicológica (55 5025 0855, opción 3 para riesgo suicida), fechas de convocatoria y renovación de becas: agendables en la misma conversación.</p>
+      </div>
+      <div class="card reveal-target" style="border:2px solid var(--unam-oro); position:relative; overflow:hidden;">
+        <div style="position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:var(--unam-oro);border-radius:50%;opacity:.12;"></div>
+        <div class="icon-chip mb-4 relative"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-lock-key"/></svg></div>
+        <h3 class="font-bold text-lg mb-2 text-azul font-display relative">On-Premise. LFPDPPP.</h3>
+        <p class="text-sm relative" style="color:var(--tinta-muted);">Corre en servidores de la propia UNAM. Ningún historial académico ni dato de aspirante sale de México. Cumple las Normas Complementarias de Protección de Datos Personales de la universidad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== S5.5 · DEMO unam.mx SUPERCARGADO ====== -->
+<section id="demo-unam" class="demo-section">
+  <div class="section reveal-section">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="badge badge--dark">La demo, no el PowerPoint</span>
+      <h2 class="font-display" style="color:#fff;font-size:clamp(1.9rem,4vw,2.9rem);">Así se vería unam.mx<br>con la capa de IA encima.</h2>
+      <p class="measure mx-auto mt-5" style="color:#B8C2DE;">El portal real —menú del sitemap oficial, 133 licenciaturas, trámites DGAE, becas, noticias DGCS, agenda cultural— unificado en una sola página y un asistente que responde <strong style="color:var(--unam-oro);">citando su fuente oficial</strong>. Nada de lorem ipsum: cada cifra sale de nuestro research verificado (julio 2026).</p>
+    </div>
+
+    <div class="demo-browser reveal-target">
+      <div class="demo-browser-bar" aria-hidden="true">
+        <span class="demo-dot" style="background:#FF5F57;"></span>
+        <span class="demo-dot" style="background:#FEBC2E;"></span>
+        <span class="demo-dot" style="background:#28C840;"></span>
+        <div class="demo-url"><svg class="w-3 h-3" aria-hidden="true"><use href="#i-lock-key"/></svg><span>unam.mx — Portal Inteligente · demo</span></div>
+      </div>
+      <div class="demo-preview">
+        <iframe src="./demo/index.html" loading="lazy" tabindex="-1" aria-hidden="true" title="Vista previa de la demo del portal UNAM"></iframe>
+      </div>
+    </div>
+
+    <div class="text-center mt-10">
+      <button type="button" class="cta" data-demo-open>
+        Explorar la demo interactiva <svg class="w-4 h-4" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+      </button>
+      <p class="demo-note">39 intents entrenados con las preguntas reales que los estudiantes publican en foros. En esta demo las respuestas son simuladas; el piloto real corre sobre nuestro stack agente + RAG + WhatsApp Cloud API, on-premise en servidores de la UNAM.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Overlay fullscreen con la demo -->
+<div class="demo-overlay" id="demo-overlay" role="dialog" aria-modal="true" aria-label="Demo interactiva del portal UNAM" hidden>
+  <div class="demo-overlay-frame">
+    <iframe data-demo-iframe title="Demo interactiva del portal UNAM con asistente de IA"></iframe>
+  </div>
+  <button type="button" class="demo-overlay-close" data-demo-close>
+    <svg class="w-4 h-4" aria-hidden="true"><use href="#i-x-circle"/></svg> Cerrar demo
+  </button>
+</div>
+
+<div class="connecting-line-wrap"><div id="connecting-line" class="connecting-line"></div></div>
+
+<!-- ====== S7 · TRES CAMINOS (PRICING) ====== -->
+<section id="piloto" style="background:linear-gradient(160deg,var(--unam-azul),var(--unam-azul-deep));color:#fff;">
+  <div class="section reveal-section">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="badge badge--dark">La inversión</span>
+      <h2 class="font-display" style="font-size:clamp(1.9rem,4vw,2.9rem);">Tres caminos.<br>Uno empieza este semestre.</h2>
+      <p class="measure mx-auto mt-5" style="color:#D7DEEF;">Setup único + licencia mensual por alcance. Todo on-premise, todo con fuente oficial. Una posición administrativa cuesta $18,000–25,000 al mes cargada y atiende 8 horas × 5 días, una conversación a la vez — el asistente atiende 24/7, sin límite de conversaciones.</p>
+      <p class="measure mx-auto mt-4 text-sm" style="color:#8FA0C7;">Los proyectos de IA en educación pública fracasan por tres razones: tecnología sin adopción, ignorar al personal que ya atiende, y no sobrevivir al cambio de administración. Este plan está diseñado contra las tres: capacitación incluida, el asistente libera (no reemplaza), y todo corre en servidores de la UNAM, con sus datos y sus llaves.</p>
+    </div>
+
+    <!-- Contexto de mercado (anclaje con benchmarks públicos) -->
+    <div class="max-w-5xl mx-auto mb-12 reveal-target rounded-2xl p-6 md:p-8" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);">
+      <p class="text-xs uppercase tracking-wider mb-5 text-center" style="color:#8FA0C7;">Contexto de mercado · contratos públicos verificables</p>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center mb-6">
+        <div>
+          <p class="font-display font-black text-oro" style="font-size:1.35rem;">US$27.5–57K<span class="text-xs font-bold" style="color:#8FA0C7;">/año</span></p>
+          <p class="text-xs mt-1" style="color:#B8C2DE;">lo que paga UN college de EE.UU. por chatbots con menos capacidad (Ocelot, Mongoose, Gecko — actas públicas)</p>
+        </div>
+        <div>
+          <p class="font-display font-black text-oro" style="font-size:1.35rem;">US$151–500K<span class="text-xs font-bold" style="color:#8FA0C7;">/año</span></p>
+          <p class="text-xs mt-1" style="color:#B8C2DE;">distritos de community colleges de California (CalMatters, 2026)</p>
+        </div>
+        <div>
+          <p class="font-display font-black text-oro" style="font-size:1.35rem;">US$3.8M</p>
+          <p class="text-xs mt-1" style="color:#B8C2DE;">contrato multi-año de chatbot del LA Community College District</p>
+        </div>
+        <div>
+          <p class="font-display font-black text-oro" style="font-size:1.35rem;">US$50K+</p>
+          <p class="text-xs mt-1" style="color:#B8C2DE;">piso de un rediseño web universitario enterprise (agencias higher-ed)</p>
+        </div>
+      </div>
+      <p class="text-center text-sm" style="color:#D7DEEF;">Esas cifras son para instituciones de 5,000–25,000 estudiantes, en inglés, en la nube de alguien más. <strong class="text-oro">La UNAM atiende a 368 mil</strong> — más que la mayoría de esos distritos. Construirlo internamente son 4–6 posiciones senior y 18 meses; aquí entra en producción en semanas, en servidores de la UNAM.</p>
+    </div>
+
+    <!-- Plan de 3 pasos (cómo empezamos) -->
+    <div class="grid sm:grid-cols-3 gap-4 max-w-4xl mx-auto mb-12 text-center reveal-target">
+      <div class="rounded-xl p-5" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);">
+        <p class="font-display font-black text-oro text-lg mb-1">1 · Sesión ejecutiva</p>
+        <p class="text-xs" style="color:#B8C2DE;">45 minutos con Rectoría. Se llevan el mapa de oportunidades de IA para la UNAM — contraten o no.</p>
+      </div>
+      <div class="rounded-xl p-5" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);">
+        <p class="font-display font-black text-oro text-lg mb-1">2 · Piloto medible</p>
+        <p class="text-xs" style="color:#B8C2DE;">Una facultad, tres meses, métricas de uso reales. Sin riesgo político: alcance acotado y garantía total.</p>
+      </div>
+      <div class="rounded-xl p-5" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);">
+        <p class="font-display font-black text-oro text-lg mb-1">3 · Escala con datos</p>
+        <p class="text-xs" style="color:#B8C2DE;">La decisión de crecer se toma con los números del piloto sobre la mesa, no con promesas.</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 items-stretch max-w-6xl mx-auto">
+
+      <!-- Plan 1 · Piloto -->
+      <div class="rounded-2xl p-8 flex flex-col reveal-target" style="background:rgba(255,255,255,.07);border:2px solid var(--unam-oro);position:relative;">
+        <span class="badge" style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);margin:0;white-space:nowrap;">Empezar aquí · sin licitación</span>
+        <p class="text-xs uppercase tracking-wider mb-1" style="color:#8FA0C7;">Plan 1 · Piloto</p>
+        <p class="font-display font-bold text-xl mb-4">Una facultad, tres meses, resultado medible</p>
+        <p class="font-display font-black" style="font-size:2rem;line-height:1;">$480,000 <span class="text-sm font-bold" style="color:#8FA0C7;">setup</span></p>
+        <p class="font-display font-bold text-lg mt-1">$75,000<span class="text-sm font-bold" style="color:#8FA0C7;">/mes</span></p>
+        <p class="text-xs mt-2 mb-1" style="color:var(--unam-oro);">$7.50 por estudiante al mes · cabe en adjudicación directa</p>
+        <p class="text-xs mb-5" style="color:#8FA0C7;">Piloto de 90 días con 3 criterios de éxito acordados por escrito. Si escala al Plan 2, <strong style="color:#B8C2DE;">el 100% del setup se acredita</strong>.</p>
+        <ul class="space-y-3 text-sm mb-8 flex-1">
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Asistente 24/7 <strong>en el portal web</strong> + WhatsApp con número oficial</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Base de conocimiento: reglamentos, planes y convocatorias de la facultad</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Traductor de trámites con la fuente exacta de la DGAE en cada respuesta</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Servidor on-premise: los datos no salen de la UNAM</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Panel de uso + capacitación al equipo administrativo</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Garantía: 14 días hábiles o devolución del 100%</span></li>
+        </ul>
+        <a href="#" data-cta="whatsapp" class="cta justify-center" style="width:100%;">Agendar reunión</a>
+      </div>
+
+      <!-- Plan 2 · Expansión -->
+      <div class="rounded-2xl p-8 flex flex-col reveal-target" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);position:relative;">
+        <span class="badge" style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);margin:0;white-space:nowrap;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.35);">Recomendado para una institución como la UNAM</span>
+        <p class="text-xs uppercase tracking-wider mb-1" style="color:#8FA0C7;">Plan 2 · Expansión</p>
+        <p class="font-display font-bold text-xl mb-4">Cinco facultades, un semestre</p>
+        <p class="font-display font-black" style="font-size:2rem;line-height:1;">$1,500,000 <span class="text-sm font-bold" style="color:#8FA0C7;">setup</span></p>
+        <p class="font-display font-bold text-lg mt-1">$220,000<span class="text-sm font-bold" style="color:#8FA0C7;">/mes</span></p>
+        <p class="text-xs mt-2 mb-5" style="color:#8FA0C7;">$3.67 por estudiante al mes</p>
+        <ul class="space-y-3 text-sm mb-8 flex-1">
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Todo lo del Piloto, en 5 facultades</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Procesador de documentos de admisión (INE, certificado, CURP)</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Anti-Fraude para aspirantes: la voz oficial contra los estafadores</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Alertas de fechas límite por WhatsApp (inscripción, becas, titulación)</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Dashboard para DGAE: preguntas frecuentes y cuellos de botella</span></li>
+        </ul>
+        <a href="#" data-cta="whatsapp" class="cta cta--ghost justify-center" style="width:100%;color:#fff;border-color:rgba(255,255,255,.4);">Conversar alcance</a>
+      </div>
+
+      <!-- Plan 3 · UNAM Inteligente -->
+      <div class="rounded-2xl p-8 flex flex-col reveal-target" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);">
+        <p class="text-xs uppercase tracking-wider mb-1" style="color:#8FA0C7;">Plan 3 · UNAM Inteligente</p>
+        <p class="font-display font-bold text-xl mb-4">Las 30+ facultades y escuelas</p>
+        <p class="font-display font-black" style="font-size:2rem;line-height:1;">$3,800,000 <span class="text-sm font-bold" style="color:#8FA0C7;">setup</span></p>
+        <p class="font-display font-bold text-lg mt-1">$550,000<span class="text-sm font-bold" style="color:#8FA0C7;">/mes</span></p>
+        <p class="text-xs mt-2 mb-5" style="color:#8FA0C7;">$1.50 por estudiante al mes — menos que un café al año</p>
+        <ul class="space-y-3 text-sm mb-8 flex-1">
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Todo lo anterior, a escala institucional</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Alta disponibilidad: infraestructura GPU dedicada en la UNAM</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Integraciones con DGAE y sistemas escolares</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Alertas masivas a 368 mil estudiantes</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Alerta temprana anti-deserción conectada al historial académico</span></li>
+          <li class="flex items-start gap-2"><svg class="w-5 h-5 shrink-0 text-oro" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Copiloto docente: calificación asistida por rúbricas + señal de uso de IA — <strong>el profesor siempre decide</strong></span></li>
+        </ul>
+        <a href="#" data-cta="whatsapp" class="cta cta--ghost justify-center" style="width:100%;color:#fff;border-color:rgba(255,255,255,.4);">Presentar a Rectoría</a>
+      </div>
+    </div>
+
+    <!-- Garantías enterprise (risk-reversal) -->
+    <div class="max-w-6xl mx-auto mt-8 grid sm:grid-cols-3 gap-4 text-center reveal-target">
+      <div class="rounded-xl p-4" style="border:1px solid rgba(255,255,255,.12);">
+        <p class="text-sm font-bold text-oro mb-1">Garantía por hitos</p>
+        <p class="text-xs" style="color:#B8C2DE;">Si un entregable no está en producción en la fecha comprometida, el siguiente mes es sin costo.</p>
+      </div>
+      <div class="rounded-xl p-4" style="border:1px solid rgba(255,255,255,.12);">
+        <p class="text-sm font-bold text-oro mb-1">SLA 99.9%</p>
+        <p class="text-xs" style="color:#B8C2DE;">Disponibilidad contractual del asistente, monitoreada y reportada cada mes.</p>
+      </div>
+      <div class="rounded-xl p-4" style="border:1px solid rgba(255,255,255,.12);">
+        <p class="text-sm font-bold text-oro mb-1">Salida a los 6 meses</p>
+        <p class="text-xs" style="color:#B8C2DE;">Cláusula de salida sin penalización en todos los planes. Los datos y la base de conocimiento son de la UNAM.</p>
+      </div>
+    </div>
+
+    <!-- Matriz completa de servicios (para el comprador analítico) -->
+    <div class="max-w-6xl mx-auto mt-10 reveal-target">
+      <p class="text-center text-xs uppercase tracking-wider mb-4" style="color:#8FA0C7;">Todo lo que incluye cada plan, sin letra chica</p>
+      <div class="overflow-x-auto rounded-2xl" style="border:1px solid rgba(255,255,255,.12);">
+        <table class="w-full text-sm" style="border-collapse:collapse;min-width:640px;">
+          <thead>
+            <tr style="background:rgba(255,255,255,.07);">
+              <th scope="col" class="text-left font-bold p-3" style="color:#D7DEEF;">Servicio</th>
+              <th scope="col" class="font-bold p-3 text-center" style="color:#8FA0C7;">Plan 0 · Portal</th>
+              <th scope="col" class="font-bold p-3 text-center text-oro">Plan 1 · Piloto</th>
+              <th scope="col" class="font-bold p-3 text-center" style="color:#D7DEEF;">Plan 2 · Expansión</th>
+              <th scope="col" class="font-bold p-3 text-center" style="color:#D7DEEF;">Plan 3 · Institucional</th>
+            </tr>
+          </thead>
+          <tbody style="color:#B8C2DE;">
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Portal reconstruido: ~15 secciones, buscador unificado, accesibilidad WCAG, capa editorial DGCS</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Monitoreo de los 19 dominios (el detector de sitios caídos)</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">cortesía</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Asistente 24/7 en el portal web + WhatsApp con número oficial</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">1 facultad</td><td class="p-3 text-center text-oro font-bold">5 facultades</td><td class="p-3 text-center text-oro font-bold">30+ facultades</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">RAG normativo: 104 documentos de Legislación Universitaria con cita exacta por respuesta</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Traductor de trámites + ruteador de certificados DGAE por nivel y plantel</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Ruteo de servicios críticos: salud mental, Defensoría, becas</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Servidor on-premise en la UNAM (LFPDPPP, respaldos cifrados)</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓ GPU</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Panel de uso + buzón de preguntas sin respuesta + capacitación al equipo</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Anti-fraude para aspirantes: la voz oficial contra gestores y cursos falsos</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Guía del Concurso de Selección (191,306 aspirantes/ciclo, acompañamiento completo)</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Procesador de documentos de admisión (INE, certificado, CURP → datos estructurados)</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Alertas de fechas límite por WhatsApp (inscripción, becas, titulación)</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓ masivas</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Copiloto SIAE + asistente de becas (21 programas INTEGRA) + calendario unificado</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Dashboard DGAE/Rectoría: preguntas frecuentes, cuellos de botella, ROI</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Integraciones profundas DGAE / sistemas escolares</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Alerta temprana anti-deserción + voicebot TRAMITEL</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Copiloto docente: calificación asistida por rúbricas + señal de uso de IA (el profesor siempre decide)</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.08);"><td class="p-3 text-left">Buscador semántico BiDi (400 mil tesis) + asistente docente</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center" style="color:#5B6B94;">—</td><td class="p-3 text-center text-oro font-bold">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Plan 0 · Solo portal (opción de entrada, subordinada a los 3 planes de IA) -->
+    <div class="max-w-6xl mx-auto mt-6 rounded-2xl p-6 md:p-8 reveal-target" style="background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.22);">
+      <div class="md:flex md:items-center md:gap-8">
+        <div class="flex-1 mb-4 md:mb-0">
+          <p class="text-xs uppercase tracking-wider mb-1" style="color:#8FA0C7;">Plan 0 · Portal UNAM — la opción sin IA</p>
+          <p class="font-display font-bold text-lg mb-2">Primero, la casa en orden: el portal completo, bien conectado.</p>
+          <p class="text-sm" style="color:#B8C2DE;">Rebuild integral del portal: ~15 secciones reorganizadas, buscador unificado, deep-links correctos a SIAE/SIGEREL/INTEGRA, accesibilidad WCAG, capa editorial para DGCS y monitoreo de los 19 dominios. Sin asistente conversacional — pero nace con la arquitectura lista para montarle cualquiera de los tres planes después.</p>
+        </div>
+        <div class="shrink-0 md:text-right">
+          <p class="font-display font-black" style="font-size:1.6rem;line-height:1;">$650,000 <span class="text-sm font-bold" style="color:#8FA0C7;">setup</span></p>
+          <p class="font-display font-bold mt-1">$35,000<span class="text-sm font-bold" style="color:#8FA0C7;">/mes mantenimiento</span></p>
+          <a href="#" data-cta="whatsapp" class="cta cta--ghost inline-flex mt-4" style="color:#fff;border-color:rgba(255,255,255,.4);padding:.75rem 1.5rem;font-size:.9rem;">Cotizar el portal</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Costo de la indecisión + siguiente paso -->
+    <div class="max-w-3xl mx-auto mt-10 text-center reveal-target rounded-2xl p-8" style="background:rgba(0,0,0,.25);border:1px solid rgba(213,159,15,.35);">
+      <p class="text-xs uppercase tracking-wider mb-3" style="color:#8FA0C7;">El costo de esperar un ciclo más</p>
+      <p class="text-sm mb-4" style="color:#D7DEEF;">Un ciclo de admisiones más con procesos manuales: otros 191 mil aspirantes navegando a mano, otra temporada de fraude sin voz oficial, y un semestre más de ventaja para quienes ya operan su propia IA.</p>
+      <p class="text-sm mb-6" style="color:#D7DEEF;">Aprobar el piloto <strong class="text-oro">no requiere licitación ni compromiso multi-anual</strong>. El primer paso es una sesión ejecutiva de 45 minutos — y el mapa de oportunidades es suyo, contraten o no.</p>
+      <a href="#" data-cta="whatsapp" class="cta">Agendar la sesión ejecutiva</a>
+    </div>
+
+    <p class="text-center text-xs mt-10 max-w-2xl mx-auto" style="color:#8FA0C7;">Precios en MXN + IVA. Fuentes del contexto de mercado: CalMatters (mar-2026), actas públicas de LLCC y Peralta CCD, Kanopi/Clutch, Manaferra. Michigan construyó el suyo in-house: se estiman US$180 millones. Desglose línea por línea de cada plan, disponible en la cotización formal. Respondemos en menos de 24 horas.</p>
+  </div>
+</section>
+
+<!-- ====== S8 · FOOTER ====== -->
+<footer style="background:var(--unam-azul-deep);color:#fff;padding:4.5rem 1.5rem 2rem;">
+  <div class="section" style="padding-top:0;padding-bottom:0;">
+    <div class="grid md:grid-cols-3 gap-10 mb-10">
+      <div>
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:var(--unam-oro);">
+            <span class="font-black text-xs font-display" style="color:var(--unam-azul-deep);">IA</span>
+          </div>
+          <span class="font-bold text-sm font-display">UNAM Inteligente</span>
+        </div>
+        <p class="text-xs leading-relaxed" style="color:#8FA0C7;">Capa de inteligencia artificial operativa para instituciones educativas. Diseñado y construido en México por <strong>SintelIA</strong>.</p>
+      </div>
+      <div>
+        <p class="font-bold text-sm mb-3 font-display">Fuente de los datos</p>
+        <p class="text-xs leading-relaxed" style="color:#8FA0C7;">Datos verificados de portales oficiales UNAM, julio 2026. Cifras con cita literal y fuente exacta (ver research-unam/). Lo no verificado no entró a esta propuesta.</p>
+      </div>
+      <div>
+        <p class="font-bold text-sm mb-3 font-display">Identidad visual</p>
+        <p class="text-xs leading-relaxed" style="color:#8FA0C7;">Paleta azul/oro según el Manual de Identidad Gráfica de la Facultad de Medicina, UNAM (Pantone 655C / 1245C). Sin uso del escudo universitario.</p>
+      </div>
+    </div>
+    <div class="border-t pt-6 text-center" style="border-color:rgba(255,255,255,.08);">
+      <p class="text-xs" style="color:#5E6D93;">© 2026 SintelIA. Capa de IA Operativa. Todos los derechos reservados. UNAM® es marca registrada de la Universidad Nacional Autónoma de México. Este sitio es una propuesta de servicios de SintelIA y no está afiliado oficialmente a la UNAM.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Número de WhatsApp de demo. Jero lo reemplaza aquí en 1 línea antes de enviar al rector.
+  const WHATSAPP_NUMBER = '5215500000000';
+
+  const waHref = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent('Quiero la demo de UNAM Inteligente');
+  document.querySelectorAll('[data-cta="whatsapp"]').forEach(a => { a.href = waHref; });
+
+  // === Overlay de la demo unam.mx (S5.5) ===
+  const demoOverlay = document.getElementById('demo-overlay');
+  const demoIframe = demoOverlay.querySelector('[data-demo-iframe]');
+  const demoCloseBtn = demoOverlay.querySelector('[data-demo-close]');
+  let demoOpener = null;
+
+  function openDemo(opener) {
+    demoOpener = opener;
+    if (!demoIframe.src) demoIframe.src = './demo/index.html';
+    demoOverlay.hidden = false;
+    requestAnimationFrame(() => demoOverlay.classList.add('is-open'));
+    try { lenis.stop(); } catch (e) { document.body.style.overflow = 'hidden'; }
+    demoCloseBtn.focus();
+  }
+  function closeDemo() {
+    demoOverlay.classList.remove('is-open');
+    try { lenis.start(); } catch (e) { document.body.style.overflow = ''; }
+    setTimeout(() => { demoOverlay.hidden = true; }, 300);
+    if (demoOpener) demoOpener.focus();
+  }
+  document.querySelectorAll('[data-demo-open]').forEach(btn => {
+    btn.addEventListener('click', () => openDemo(btn));
+  });
+  demoCloseBtn.addEventListener('click', closeDemo);
+  // ESC a nivel documento: el foco puede estar en el botón de cerrar o en la página
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !demoOverlay.hidden) closeDemo();
+    if (e.key === 'Tab' && !demoOverlay.hidden) { e.preventDefault(); demoCloseBtn.focus(); }
+  });
+  // ESC dentro del iframe (mismo origen): los keydown no cruzan al documento padre
+  demoIframe.addEventListener('load', () => {
+    try {
+      demoIframe.contentDocument.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeDemo();
+      });
+    } catch (e) { /* cross-origin: el botón Cerrar sigue disponible */ }
+  });
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // === LENIS ===
+  const lenis = new Lenis({ duration:1.3, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true, smoothTouch:false });
+  // gsap.ticker entrega tiempo en SEGUNDOS; lenis.raf espera MILISEGUNDOS (×1000)
+  function raf(time){ lenis.raf(time * 1000); }
+  gsap.ticker.add(raf);
+  gsap.ticker.lagSmoothing(0);
+  lenis.on('scroll', ScrollTrigger.update);
+
+  // === Word-split del hero (bug C1 corregido: copia estática de childNodes + tokens de espacio) ===
+  const heroTitle = document.getElementById('hero-title');
+  if (heroTitle) {
+    [...heroTitle.childNodes].forEach(node => {
+      if (node.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        node.textContent.split(/(\s+)/).forEach(tok => {
+          if (/^\s+$/.test(tok)) {
+            frag.appendChild(document.createTextNode(tok));
+          } else if (tok) {
+            const s = document.createElement('span');
+            s.className = 'split-word';
+            s.textContent = tok;
+            frag.appendChild(s);
+          }
+        });
+        node.replaceWith(frag);
+      }
+    });
+  }
+
+  // === Anchors con scroll suave (Lenis) ===
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const targetId = a.getAttribute('href');
+      if (targetId.length > 1) {
+        const t = document.querySelector(targetId);
+        if (t) { e.preventDefault(); lenis.scrollTo(t, { offset:-60 }); }
+      }
+    });
+  });
+
+  const mm = gsap.matchMedia();
+
+  // === Rama con movimiento (M1/M2) ===
+  mm.add('(prefers-reduced-motion: no-preference)', () => {
+    // Hero: entrada por load, sin scrub (400-600ms)
+    gsap.from('.split-word', { opacity:0, y:20, duration:.5, stagger:.03, ease:'power2.out', delay:.1 });
+    gsap.from('.hero-badge', { opacity:0, y:16, duration:.5, ease:'power2.out' });
+    gsap.from('.hero-sub', { opacity:0, y:16, duration:.5, ease:'power2.out', delay:.15 });
+    gsap.from('.hero-ctas > *', { opacity:0, y:12, duration:.4, stagger:.08, ease:'power2.out', delay:.32 });
+
+    // Reveals estándar de sección (58% del paso)
+    document.querySelectorAll('.reveal-section').forEach(el => {
+      const targets = el.querySelectorAll('.reveal-target, h2, .card, .stat-card');
+      if (!targets.length) return;
+      gsap.from(targets, {
+        scrollTrigger: { trigger: el, start:'top 78%', end:'top 20%', scrub:.55 },
+        opacity:0, y:24, stagger:.08, duration:.8, ease:'power2.out'
+      });
+    });
+
+    // Mapa de dominios: único pin del build (≤120%, contenido progresando)
+    const mapaSection = document.getElementById('mapa-dominios');
+    const mapaCards = mapaSection.querySelectorAll('.dominio-card');
+    ScrollTrigger.create({
+      trigger: mapaSection,
+      start: 'top top',
+      end: () => '+=' + Math.round(window.innerHeight * 1.2),
+      pin: true,
+      scrub: 0.6,
+      onUpdate: self => {
+        const p = self.progress;
+        mapaCards.forEach((card, i) => {
+          if (p >= i / mapaCards.length) card.classList.add('is-visible');
+        });
+        if (p > 0.55) {
+          mapaSection.querySelectorAll('.is-caido').forEach(c => c.classList.add('flash-red'));
+        }
+      }
+    });
+
+    // Línea conectora S5 → S6
+    const line = document.getElementById('connecting-line');
+    if (line) {
+      gsap.fromTo(line, { scaleX:0 }, {
+        scaleX:1, ease:'none',
+        scrollTrigger: { trigger:'#solucion', start:'bottom 90%', end:'bottom 40%', scrub:.7 }
+      });
+    }
+
+    // Count-up de stat cards (once:true, 1.4s, es-MX)
+    document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+      const target = parseInt(el.dataset.target, 10) || 0;
+      const suffix = el.dataset.suffix || '';
+      ScrollTrigger.create({
+        trigger: el, start:'top 90%', once:true,
+        onEnter: () => {
+          const obj = { val:0 };
+          gsap.to(obj, {
+            val: target, duration:1.4, ease:'power2.out',
+            onUpdate: () => { el.textContent = Math.round(obj.val).toLocaleString('es-MX') + suffix; }
+          });
+        }
+      });
+    });
+
+    return () => {
+      // gsap.matchMedia revierte automáticamente tweens y ScrollTriggers creados en este contexto
+    };
+  });
+
+  // === Rama sin movimiento (prefers-reduced-motion: reduce) ===
+  mm.add('(prefers-reduced-motion: reduce)', () => {
+    gsap.ticker.remove(raf);
+    lenis.destroy();
+    document.documentElement.classList.remove('lenis');
+
+    gsap.set('.split-word, .reveal-target, .dominio-card, .card, .stat-card', { clearProps:'all', opacity:1, y:0 });
+    document.querySelectorAll('.dominio-card').forEach(c => c.classList.add('is-visible'));
+    document.querySelectorAll('.dominio-card.is-caido').forEach(c => c.classList.add('flash-red'));
+
+    document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+      const target = parseInt(el.dataset.target, 10) || 0;
+      const suffix = el.dataset.suffix || '';
+      el.textContent = target.toLocaleString('es-MX') + suffix;
+    });
+
+    const line = document.getElementById('connecting-line');
+    if (line) line.style.transform = 'scaleX(1)';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNAM — Portal Inteligente (demo)</title>
+<meta name="description" content="Demo conceptual: la homepage de la UNAM con una capa de acceso inteligente. Datos oficiales verificados, julio 2026. SintelIA.">
+
+<link rel="stylesheet" href="../assets/vendor/eb-garamond.css">
+<link rel="stylesheet" href="../assets/vendor/geist-400.css">
+<link rel="stylesheet" href="../assets/vendor/geist-500.css">
+<link rel="stylesheet" href="../assets/vendor/geist-600.css">
+<link rel="stylesheet" href="../assets/vendor/geist-700.css">
+
+<link rel="stylesheet" href="./asistente.css">
+
+<style>
+  :root{
+    --unam-azul:#002B7A;
+    --unam-azul-deep:#001742;
+    --unam-oro:#D59F0F;
+    --unam-oro-soft:#F3E3B3;
+    --oro-dark:#7A5A08;
+    --papel:#FBF8F1;
+    --tinta:#101A2E;
+    --tinta-muted:#4A5568;
+    --danger:#B42318;
+    --borde:rgba(0,43,122,.08);
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+  body{
+    font-family:'Geist Sans', system-ui, sans-serif;
+    background:var(--papel);
+    color:var(--tinta);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .num{ font-variant-numeric:lining-nums tabular-nums; }
+  h1,h2,h3,.display{ font-family:'EB Garamond', Georgia, serif; font-weight:600; line-height:1.12; color:var(--unam-azul-deep); }
+  a{ color:var(--unam-azul); }
+  :focus-visible{ outline:3px solid var(--unam-oro); outline-offset:2px; border-radius:4px; }
+
+  .skip-link{
+    position:absolute; left:-9999px; top:0; z-index:200;
+    background:var(--unam-azul-deep); color:#fff; padding:.75rem 1.25rem; border-radius:0 0 .75rem 0;
+  }
+  .skip-link:focus{ left:0; }
+
+  .ic{ width:1.25rem; height:1.25rem; flex:none; fill:currentColor; }
+  .ic--sm{ width:1rem; height:1rem; }
+  .ic--lg{ width:1.5rem; height:1.5rem; }
+
+  .wrap{ max-width:1200px; margin:0 auto; padding:0 1.5rem; }
+  .section{ padding:5rem 0; }
+  @media(max-width:768px){ .section{ padding:3.5rem 0; } }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:.5rem;
+    font-size:.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--oro-dark); margin-bottom:.9rem;
+  }
+  .eyebrow::before{ content:""; width:1.6rem; height:3px; background:var(--unam-oro); border-radius:2px; }
+  .section-title{ font-size:clamp(1.7rem, 3.2vw, 2.4rem); margin-bottom:.6rem; }
+  .section-lead{ color:var(--tinta-muted); max-width:62ch; margin-bottom:2.25rem; }
+
+  .card{
+    background:#fff; border-radius:1.25rem; padding:1.75rem;
+    border:1px solid var(--borde);
+    box-shadow:0 1px 3px rgba(0,0,0,.04), 0 10px 28px rgba(0,43,122,.04);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .card:hover{ transform:translateY(-3px); box-shadow:0 6px 16px rgba(0,0,0,.06), 0 22px 48px rgba(0,43,122,.07); }
+  @media (prefers-reduced-motion: reduce){ .card, .card:hover{ transform:none; transition:none; } }
+
+  .chip{
+    display:inline-flex; align-items:center; gap:.4rem;
+    background:rgba(0,43,122,.06); color:var(--unam-azul);
+    padding:.3rem .8rem; border-radius:9999px;
+    font-size:.75rem; font-weight:600;
+  }
+  .chip--oro{ background:var(--unam-oro-soft); color:var(--oro-dark); }
+  .fuente{ font-size:.75rem; color:var(--tinta-muted); }
+  .fuente a{ color:inherit; }
+
+  /* ============ HEADER ============ */
+  .header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(251,248,241,.92); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--borde);
+  }
+  .header-inner{ display:flex; align-items:center; gap:1.25rem; min-height:4.25rem; }
+  .brand{ display:flex; align-items:center; gap:.75rem; text-decoration:none; }
+  .brand-mark{
+    font-family:'EB Garamond', Georgia, serif; font-weight:700; font-size:1.6rem;
+    color:var(--unam-azul-deep); letter-spacing:.02em; line-height:1;
+  }
+  .brand-sub{ font-size:.62rem; color:var(--tinta-muted); letter-spacing:.02em; max-width:13rem; line-height:1.25; }
+  .brand-badge{
+    background:var(--unam-oro-soft); color:var(--oro-dark);
+    font-size:.65rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    padding:.3rem .7rem; border-radius:9999px; white-space:nowrap;
+  }
+  .nav-desktop{ display:flex; align-items:center; gap:.1rem; margin-left:auto; }
+  .nav-item{ position:relative; }
+  .nav-btn{
+    display:inline-flex; align-items:center; gap:.3rem;
+    background:none; border:0; cursor:pointer;
+    font:inherit; font-size:.85rem; font-weight:600; color:var(--tinta);
+    padding:.8rem .7rem; min-height:44px; border-radius:.6rem;
+    white-space:nowrap;
+  }
+  .nav-btn:hover{ background:rgba(0,43,122,.06); color:var(--unam-azul); }
+  .nav-panel{
+    position:absolute; top:100%; left:50%; transform:translateX(-50%);
+    background:#fff; border:1px solid var(--borde); border-radius:1rem;
+    box-shadow:0 12px 40px rgba(0,23,66,.14);
+    padding:1rem; min-width:16rem;
+    display:none; z-index:110;
+  }
+  .nav-item:hover .nav-panel, .nav-item:focus-within .nav-panel{ display:block; }
+  .nav-panel--wide{ min-width:34rem; column-count:2; column-gap:1rem; }
+  .nav-panel a{
+    display:block; padding:.5rem .7rem; border-radius:.55rem;
+    font-size:.83rem; color:var(--tinta); text-decoration:none;
+    break-inside:avoid;
+  }
+  .nav-panel a:hover{ background:rgba(0,43,122,.06); color:var(--unam-azul); }
+  .menu-toggle{
+    display:none; margin-left:auto;
+    background:none; border:1px solid var(--borde); border-radius:.7rem;
+    min-width:44px; min-height:44px; cursor:pointer; color:var(--unam-azul);
+    align-items:center; justify-content:center;
+  }
+  .nav-mobile{ display:none; border-top:1px solid var(--borde); padding:.75rem 0 1.25rem; }
+  .nav-mobile.open{ display:block; }
+  .nav-mobile a{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:.8rem .5rem; min-height:44px;
+    font-size:.95rem; font-weight:600; color:var(--tinta); text-decoration:none;
+    border-bottom:1px solid var(--borde);
+  }
+  @media(max-width:1080px){
+    .nav-desktop{ display:none; }
+    .menu-toggle{ display:inline-flex; }
+    .brand-sub{ display:none; }
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    background:linear-gradient(180deg, #fff 0%, var(--papel) 100%);
+    border-bottom:1px solid var(--borde);
+    padding:4.5rem 0 4rem;
+  }
+  .hero-lema{
+    font-family:'EB Garamond', Georgia, serif; font-style:italic;
+    color:var(--oro-dark); font-size:1rem; margin-bottom:1rem;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem, 5vw, 3.6rem); font-weight:700;
+    max-width:20ch; margin-bottom:1.1rem;
+  }
+  .hero-sub{ color:var(--tinta-muted); font-size:1.05rem; max-width:58ch; margin-bottom:2.25rem; }
+  .omnibox-shell{ max-width:46rem; }
+  .omnibox-form{
+    display:flex; align-items:center; gap:.5rem;
+    background:#fff; border:2px solid var(--unam-azul);
+    border-radius:1.25rem; padding:.45rem .45rem .45rem 1.1rem;
+    box-shadow:0 6px 24px rgba(0,43,122,.10);
+  }
+  .omnibox-form:focus-within{ box-shadow:0 6px 30px rgba(0,43,122,.18); }
+  .omnibox-form .ic{ color:var(--unam-azul); }
+  .omnibox-input{
+    flex:1; border:0; background:transparent; font:inherit; font-size:1.05rem;
+    color:var(--tinta); min-height:44px; min-width:0;
+  }
+  .omnibox-input::placeholder{ color:var(--tinta-muted); }
+  .omnibox-input:focus{ outline:none; }
+  .omnibox-btn{
+    display:inline-flex; align-items:center; gap:.5rem;
+    background:var(--unam-azul); color:#fff; border:0; cursor:pointer;
+    font:inherit; font-weight:700; font-size:.95rem;
+    padding:.7rem 1.4rem; min-height:44px; border-radius:.9rem;
+    transition:background-color .25s ease;
+  }
+  .omnibox-btn:hover{ background:var(--unam-azul-deep); }
+  .omnibox-sugerencias{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.9rem; }
+  .sugerencia{
+    background:#fff; border:1px solid var(--borde); border-radius:9999px;
+    padding:.55rem 1rem; min-height:44px; cursor:pointer;
+    font:inherit; font-size:.83rem; color:var(--unam-azul); font-weight:600;
+    display:inline-flex; align-items:center; gap:.4rem;
+    transition:border-color .25s ease, background-color .25s ease;
+  }
+  .sugerencia:hover{ border-color:var(--unam-azul); background:rgba(0,43,122,.04); }
+  .omnibox-nota{ margin-top:.8rem; font-size:.78rem; color:var(--tinta-muted); display:flex; align-items:center; gap:.45rem; }
+  #omnibox-results{ margin-top:1rem; }
+  .hero-stats{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(11rem, 1fr));
+    gap:1rem; margin-top:3rem; max-width:56rem;
+  }
+  .stat{ padding-left:0; }
+  .stat b{ display:block; font-family:'EB Garamond', Georgia, serif; font-size:1.9rem; font-weight:700; color:var(--unam-azul-deep); line-height:1.1; }
+  .stat b::after{ content:""; display:block; width:2rem; height:2px; background:var(--unam-oro); border-radius:2px; margin-top:.35rem; }
+  .stat span{ font-size:.8rem; color:var(--tinta-muted); }
+
+  /* ============ PATH SELECTOR ============ */
+  .paths{ display:grid; grid-template-columns:repeat(auto-fit, minmax(15rem, 1fr)); gap:1.25rem; }
+  .path-card{
+    display:flex; flex-direction:column; gap:.8rem;
+    text-decoration:none; color:inherit;
+  }
+  .path-card .icon-chip{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:2.9rem; height:2.9rem; border-radius:.9rem;
+    background:rgba(0,43,122,.07); color:var(--unam-azul);
+  }
+  .path-card h3{ font-size:1.35rem; }
+  .path-card p{ font-size:.88rem; color:var(--tinta-muted); flex:1; }
+  .path-card .ir{ display:inline-flex; align-items:center; gap:.4rem; font-size:.85rem; font-weight:700; color:var(--unam-azul); }
+
+  /* ============ TRÁMITES ============ */
+  .tramites-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(19rem, 1fr)); gap:1.25rem; }
+  .tramite-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:.75rem; margin-bottom:.7rem; }
+  .tramite-head .icon-chip{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:2.6rem; height:2.6rem; border-radius:.85rem;
+    background:rgba(0,43,122,.07); color:var(--unam-azul); flex:none;
+  }
+  .tramite-tiempo{
+    display:inline-flex; align-items:center; gap:.35rem;
+    background:var(--unam-oro-soft); color:var(--oro-dark);
+    font-size:.78rem; font-weight:700; padding:.35rem .75rem; border-radius:9999px; white-space:nowrap;
+  }
+  .card h3{ font-size:1.15rem; margin-bottom:.4rem; }
+  .card .desc{ font-size:.88rem; color:var(--tinta-muted); margin-bottom:.9rem; }
+  .card .meta{ display:flex; flex-direction:column; gap:.35rem; font-size:.82rem; color:var(--tinta-muted); margin-bottom:.9rem; }
+  .card .meta div{ display:flex; gap:.5rem; align-items:flex-start; }
+  .card .meta .ic{ width:1rem; height:1rem; margin-top:.15rem; color:var(--unam-azul); }
+  .banda{
+    background:var(--unam-azul-deep); color:#fff; border-radius:1.25rem;
+    padding:2rem; margin-top:2rem;
+    display:flex; flex-wrap:wrap; align-items:center; gap:1.5rem; justify-content:space-between;
+  }
+  .banda h3{ color:#fff; font-size:1.3rem; max-width:34ch; }
+  .banda p{ color:rgba(255,255,255,.75); font-size:.88rem; max-width:52ch; }
+  .banda .chip--oro{ background:rgba(213,159,15,.18); color:var(--unam-oro); }
+
+  /* ============ ADMISIONES ============ */
+  .adm-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:1.5rem; align-items:start; }
+  .adm-grid > *{ min-width:0; }
+  @media(max-width:900px){ .adm-grid{ grid-template-columns:1fr; } }
+  .adm-cifras{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:1.25rem; }
+  .adm-cifras .card{ min-width:0; padding:1.4rem; }
+  .fechas-lista{ list-style:none; }
+  .fechas-lista li{
+    display:flex; gap:.9rem; padding:.8rem 0; border-bottom:1px solid var(--borde);
+    font-size:.9rem; align-items:baseline;
+  }
+  .fechas-lista li:last-child{ border-bottom:0; }
+  .fechas-lista b{ color:var(--unam-azul-deep); min-width:11rem; font-variant-numeric:lining-nums tabular-nums; }
+  .alerta{
+    border:1px solid rgba(180,35,24,.35); background:#fff;
+    border-radius:1rem; padding:1.5rem; margin-top:1.5rem;
+  }
+  .alerta h3{ color:var(--danger); font-size:1.05rem; display:flex; align-items:center; gap:.5rem; margin-bottom:.5rem; }
+  .alerta blockquote{ font-size:.9rem; color:var(--tinta); font-style:italic; margin-bottom:.6rem; }
+
+  /* ============ BECAS ============ */
+  .becas-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(17rem, 1fr)); gap:1.25rem; }
+  .beca-monto{ font-family:'EB Garamond', Georgia, serif; font-size:1.7rem; font-weight:700; color:var(--unam-azul-deep); }
+  .beca-monto small{ font-family:'Geist Sans', system-ui, sans-serif; font-size:.75rem; color:var(--tinta-muted); font-weight:500; }
+
+  /* ============ DOCENTES ============ */
+  .docentes-band{ background:#fff; border:1px solid var(--borde); border-radius:1.25rem; padding:2rem; }
+  .docentes-links{ display:grid; grid-template-columns:repeat(auto-fit, minmax(14rem, 1fr)); gap:.6rem; margin-top:1.25rem; }
+  .docentes-links a{
+    display:flex; align-items:center; gap:.6rem;
+    padding:.7rem .9rem; min-height:44px; border-radius:.75rem;
+    border:1px solid var(--borde); text-decoration:none;
+    font-size:.87rem; font-weight:600; color:var(--unam-azul);
+  }
+  .docentes-links a:hover{ background:rgba(0,43,122,.05); }
+
+  /* ============ NOTICIAS / AGENDA ============ */
+  .noticias-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(18rem, 1fr)); gap:1.25rem; }
+  .noticia-fecha{ font-size:.75rem; font-weight:700; color:var(--oro-dark); letter-spacing:.05em; text-transform:uppercase; margin-bottom:.5rem; display:block; }
+  .noticia-card h3{ font-size:1.08rem; line-height:1.35; }
+  .noticia-card h3 a{ color:inherit; text-decoration:none; }
+  .noticia-card h3 a:hover{ color:var(--unam-azul); text-decoration:underline; }
+  .agenda-lista{ list-style:none; display:grid; grid-template-columns:repeat(auto-fit, minmax(20rem, 1fr)); gap:.75rem; }
+  .agenda-lista li{
+    display:flex; gap:1rem; align-items:center;
+    background:#fff; border:1px solid var(--borde); border-radius:1rem; padding:.9rem 1.1rem;
+  }
+  .agenda-fecha{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:rgba(0,43,122,.06); border-radius:.75rem;
+    min-width:3.4rem; padding:.45rem .3rem; flex:none;
+  }
+  .agenda-fecha b{ font-family:'EB Garamond', Georgia, serif; font-size:1.25rem; color:var(--unam-azul-deep); line-height:1; }
+  .agenda-fecha span{ font-size:.65rem; text-transform:uppercase; letter-spacing:.06em; color:var(--tinta-muted); }
+  .agenda-lista h3{ font-size:.95rem; line-height:1.3; }
+  .agenda-lista p{ font-size:.78rem; color:var(--tinta-muted); }
+  .recintos{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.5rem; }
+
+  /* ============ VOZ ============ */
+  .voz{ background:var(--unam-azul-deep); color:#fff; }
+  .voz .eyebrow{ color:var(--unam-oro); }
+  .voz .eyebrow::before{ background:var(--unam-oro); }
+  .voz .section-title, .voz h3{ color:#fff; }
+  .voz .section-lead{ color:rgba(255,255,255,.72); }
+  .voz-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(20rem, 1fr)); gap:1.25rem; }
+  .verbatim{
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+    border-radius:1.25rem; padding:2rem;
+  }
+  .verbatim blockquote{
+    font-family:'EB Garamond', Georgia, serif; font-size:1.35rem; font-style:italic;
+    line-height:1.4; margin-bottom:1rem; color:#fff;
+  }
+  .verbatim cite{ font-style:normal; font-size:.8rem; color:rgba(255,255,255,.65); }
+  .voz-cierre{ margin-top:2rem; font-size:.95rem; color:rgba(255,255,255,.85); max-width:60ch; }
+
+  /* ============ FOOTER ============ */
+  .footer{ background:#fff; border-top:1px solid var(--borde); padding:3.5rem 0 2.5rem; }
+  .footer-grid{ display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr; gap:2rem; margin-bottom:2.5rem; }
+  @media(max-width:900px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:560px){ .footer-grid{ grid-template-columns:1fr; } }
+  .footer h4{ font-size:.8rem; text-transform:uppercase; letter-spacing:.07em; color:var(--tinta-muted); margin-bottom:.9rem; }
+  .footer ul{ list-style:none; }
+  .footer li a{
+    display:inline-block; padding:.3rem 0; font-size:.87rem;
+    color:var(--tinta); text-decoration:none;
+  }
+  .footer li a:hover{ color:var(--unam-azul); text-decoration:underline; }
+  .footer-legal{ border-top:1px solid var(--borde); padding-top:1.5rem; font-size:.75rem; color:var(--tinta-muted); max-width:90ch; }
+  .footer-demo-tag{ margin-top:.8rem; font-weight:700; color:var(--oro-dark); }
+
+  /* ============ REVEALS (guardado por reduced-motion) ============ */
+  html.js .reveal{ opacity:0; transform:translateY(18px); transition:opacity .32s ease-out, transform .32s ease-out; }
+  html.js .reveal.in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){
+    html.js .reveal{ opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <symbol id="i-bank" viewBox="0 0 256 256"><path d="M24,104H48v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16H208V104h24a8,8,0,0,0,4.19-14.81l-104-64a8,8,0,0,0-8.38,0l-104,64A8,8,0,0,0,24,104Zm40,0H96v64H64Zm80,0v64H112V104Zm48,64H160V104h32ZM128,41.39,203.74,88H52.26ZM248,208a8,8,0,0,1-8,8H16a8,8,0,0,1,0-16H240A8,8,0,0,1,248,208Z"/></symbol>
+    <symbol id="i-graduation-cap" viewBox="0 0 256 256"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"/></symbol>
+    <symbol id="i-scroll" viewBox="0 0 256 256"><path d="M96,104a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H104A8,8,0,0,1,96,104Zm8,40h64a8,8,0,0,0,0-16H104a8,8,0,0,0,0,16Zm128,48a32,32,0,0,1-32,32H88a32,32,0,0,1-32-32V64a16,16,0,0,0-32,0c0,5.74,4.83,9.62,4.88,9.66h0A8,8,0,0,1,24,88a7.89,7.89,0,0,1-4.79-1.61h0C18.05,85.54,8,77.61,8,64A32,32,0,0,1,40,32H176a32,32,0,0,1,32,32V168h8a8,8,0,0,1,4.8,1.6C222,170.46,232,178.39,232,192ZM96.26,173.48A8.07,8.07,0,0,1,104,168h88V64a16,16,0,0,0-16-16H67.69A31.71,31.71,0,0,1,72,64V192a16,16,0,0,0,32,0c0-5.74-4.83-9.62-4.88-9.66A7.82,7.82,0,0,1,96.26,173.48ZM216,192a12.58,12.58,0,0,0-3.23-8h-94a26.92,26.92,0,0,1,1.21,8,31.82,31.82,0,0,1-4.29,16H200A16,16,0,0,0,216,192Z"/></symbol>
+    <symbol id="i-book-open" viewBox="0 0 256 256"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></symbol>
+    <symbol id="i-shield-check" viewBox="0 0 256 256"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></symbol>
+    <symbol id="i-file-text" viewBox="0 0 256 256"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></symbol>
+    <symbol id="i-warning-octagon" viewBox="0 0 256 256"><path d="M120,136V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0ZM232,91.55v72.9a15.86,15.86,0,0,1-4.69,11.31l-51.55,51.55A15.86,15.86,0,0,1,164.45,232H91.55a15.86,15.86,0,0,1-11.31-4.69L28.69,175.76A15.86,15.86,0,0,1,24,164.45V91.55a15.86,15.86,0,0,1,4.69-11.31L80.24,28.69A15.86,15.86,0,0,1,91.55,24h72.9a15.86,15.86,0,0,1,11.31,4.69l51.55,51.55A15.86,15.86,0,0,1,232,91.55Zm-16,0L164.45,40H91.55L40,91.55v72.9L91.55,216h72.9L216,164.45ZM128,160a12,12,0,1,0,12,12A12,12,0,0,0,128,160Z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 256 256"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol>
+    <symbol id="i-chats-circle" viewBox="0 0 256 256"><path d="M232.07,186.76a80,80,0,0,0-62.5-114.17A80,80,0,1,0,23.93,138.76l-7.27,24.71a16,16,0,0,0,19.87,19.87l24.71-7.27a80.39,80.39,0,0,0,25.18,7.35,80,80,0,0,0,108.34,40.65l24.71,7.27a16,16,0,0,0,19.87-19.86ZM62,159.5a8.28,8.28,0,0,0-2.26.32L32,168l8.17-27.76a8,8,0,0,0-.63-6,64,64,0,1,1,26.26,26.26A8,8,0,0,0,62,159.5Zm153.79,28.73L224,216l-27.76-8.17a8,8,0,0,0-6,.63,64.05,64.05,0,0,1-85.87-24.88A79.93,79.93,0,0,0,174.7,89.71a64,64,0,0,1,41.75,92.48A8,8,0,0,0,215.82,188.23Z"/></symbol>
+    <symbol id="i-magnifying-glass" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></symbol>
+    <symbol id="i-map-pin" viewBox="0 0 256 256"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></symbol>
+    <symbol id="i-calendar-blank" viewBox="0 0 256 256"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></symbol>
+    <symbol id="i-robot" viewBox="0 0 256 256"><path d="M200,48H136V16a8,8,0,0,0-16,0V48H56A32,32,0,0,0,24,80V192a32,32,0,0,0,32,32H200a32,32,0,0,0,32-32V80A32,32,0,0,0,200,48Zm16,144a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V80A16,16,0,0,1,56,64H200a16,16,0,0,1,16,16Zm-52-56H92a28,28,0,0,0,0,56h72a28,28,0,0,0,0-56Zm-24,16v24H116V152ZM80,164a12,12,0,0,1,12-12h8v24H92A12,12,0,0,1,80,164Zm84,12h-8V152h8a12,12,0,0,1,0,24ZM72,108a12,12,0,1,1,12,12A12,12,0,0,1,72,108Zm88,0a12,12,0,1,1,12,12A12,12,0,0,1,160,108Z"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
+    <symbol id="i-caret-down" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 256 256"><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z"/></symbol>
+    <symbol id="i-list" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ HEADER ============ -->
+<header class="header">
+  <div class="wrap">
+    <div class="header-inner">
+      <a class="brand" href="#contenido" aria-label="UNAM — inicio de la demo">
+        <span class="brand-mark">UNAM</span>
+        <span class="brand-sub">Universidad Nacional Autónoma de México</span>
+        <span class="brand-badge">Portal inteligente · demo</span>
+      </a>
+
+      <nav class="nav-desktop" aria-label="Navegación principal (secciones reales del portal unam.mx)">
+        <div class="nav-item">
+          <button class="nav-btn" type="button" aria-haspopup="true">Comunidad <svg class="ic ic--sm" aria-hidden="true"><use href="#i-caret-down"/></svg></button>
+          <div class="nav-panel nav-panel--wide">
+            <a href="https://www.unam.mx/comunidad/estudiantes" target="_blank" rel="noopener">Estudiantes</a>
+            <a href="https://www.unam.mx/comunidad/estudiantes/facultades-y-escuelas" target="_blank" rel="noopener">Facultades y Escuelas</a>
+            <a href="https://www.unam.mx/comunidad/estudiantes/servicios-escolares" target="_blank" rel="noopener">Servicios Escolares</a>
+            <a href="https://www.unam.mx/comunidad/estudiantes/becas" target="_blank" rel="noopener">Becas y Otros Apoyos</a>
+            <a href="https://www.unam.mx/comunidad/estudiantes/servicio-social" target="_blank" rel="noopener">Servicio Social</a>
+            <a href="https://www.unam.mx/comunidad/estudiantes/titulacion" target="_blank" rel="noopener">Titulación y Cédula Profesional</a>
+            <a href="https://www.unam.mx/comunidad/estudiantes/servicios-medicos" target="_blank" rel="noopener">Servicios Médicos</a>
+            <a href="https://www.unam.mx/comunidad/estudiantes/bibliotecas" target="_blank" rel="noopener">Bibliotecas</a>
+            <a href="https://www.unam.mx/comunidad/estudiantes/bolsa-trabajo" target="_blank" rel="noopener">Bolsa de Trabajo</a>
+            <a href="https://www.unam.mx/comunidad/estudiantes/deporte-universitario" target="_blank" rel="noopener">Deporte Universitario</a>
+            <a href="https://www.unam.mx/comunidad/estudiantes/orientacion-vocacional" target="_blank" rel="noopener">Orientación Vocacional</a>
+            <a href="https://www.unam.mx/comunidad/estudiantes/estudiantes-extranjeros" target="_blank" rel="noopener">Estudiantes Extranjeros</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-btn" type="button" aria-haspopup="true">Académicos <svg class="ic ic--sm" aria-hidden="true"><use href="#i-caret-down"/></svg></button>
+          <div class="nav-panel">
+            <a href="https://www.unam.mx/academicos/aulas-virtuales" target="_blank" rel="noopener">Aulas Virtuales</a>
+            <a href="https://www.unam.mx/academicos/becas-estimulos-academicos" target="_blank" rel="noopener">Becas y Estímulos Académicos</a>
+            <a href="https://www.unam.mx/academicos/calendario-academico" target="_blank" rel="noopener">Calendario Académico</a>
+            <a href="https://www.unam.mx/academicos/normatividad" target="_blank" rel="noopener">Normatividad</a>
+            <a href="https://www.unam.mx/academicos/cursos-docencia" target="_blank" rel="noopener">Cursos para la Docencia</a>
+            <a href="https://www.unam.mx/academicos/tecnologia-docencia" target="_blank" rel="noopener">Tecnología para la Docencia</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-btn" type="button" aria-haspopup="true">Oferta Educativa <svg class="ic ic--sm" aria-hidden="true"><use href="#i-caret-down"/></svg></button>
+          <div class="nav-panel">
+            <a href="https://www.unam.mx/oferta-educativa/bachillerato" target="_blank" rel="noopener">Bachillerato</a>
+            <a href="https://www.unam.mx/oferta-educativa/licenciatura" target="_blank" rel="noopener">Licenciatura</a>
+            <a href="https://www.unam.mx/oferta-educativa/posgrado" target="_blank" rel="noopener">Posgrado</a>
+            <a href="https://www.unam.mx/oferta-educativa/suayed" target="_blank" rel="noopener">Universidad Abierta y a Distancia</a>
+            <a href="https://www.unam.mx/oferta-educativa/educacion-continua" target="_blank" rel="noopener">Educación Continua</a>
+            <a href="https://www.unam.mx/oferta-educativa/idiomas" target="_blank" rel="noopener">Idiomas</a>
+            <a href="https://www.unam.mx/oferta-educativa/movilidad" target="_blank" rel="noopener">Movilidad</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-btn" type="button" aria-haspopup="true">Investigación <svg class="ic ic--sm" aria-hidden="true"><use href="#i-caret-down"/></svg></button>
+          <div class="nav-panel">
+            <a href="https://www.unam.mx/investigacion/coordinacion-humanidades" target="_blank" rel="noopener">Coordinación de Humanidades</a>
+            <a href="https://www.unam.mx/investigacion/coordinacion-investigacion-cientifica" target="_blank" rel="noopener">Investigación Científica</a>
+            <a href="https://www.unam.mx/investigacion/institutos-centros-programas" target="_blank" rel="noopener">Institutos, Centros y Programas</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-btn" type="button" aria-haspopup="true">Cultura <svg class="ic ic--sm" aria-hidden="true"><use href="#i-caret-down"/></svg></button>
+          <div class="nav-panel">
+            <a href="https://cultura.unam.mx/" target="_blank" rel="noopener">Agenda Cultural</a>
+            <a href="https://descargacultura.unam.mx/" target="_blank" rel="noopener">Descarga Cultura</a>
+            <a href="https://tv.unam.mx/" target="_blank" rel="noopener">TV UNAM</a>
+            <a href="https://radio.unam.mx/" target="_blank" rel="noopener">Radio UNAM</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-btn" type="button" aria-haspopup="true">Deportes <svg class="ic ic--sm" aria-hidden="true"><use href="#i-caret-down"/></svg></button>
+          <div class="nav-panel">
+            <a href="https://deporte.unam.mx/" target="_blank" rel="noopener">Deporte UNAM</a>
+            <a href="https://www.unam.mx/deportes/club-pumas" target="_blank" rel="noopener">Club Pumas Soccer</a>
+            <a href="https://www.unam.mx/deportes/disciplinas-deportivas" target="_blank" rel="noopener">Disciplinas Deportivas</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-btn" type="button" aria-haspopup="true">Acerca de la UNAM <svg class="ic ic--sm" aria-hidden="true"><use href="#i-caret-down"/></svg></button>
+          <div class="nav-panel">
+            <a href="https://www.unam.mx/acerca-de-la-unam/que-es" target="_blank" rel="noopener">Qué es la UNAM</a>
+            <a href="https://www.unam.mx/acerca-de-la-unam/identidad" target="_blank" rel="noopener">Identidad UNAM</a>
+            <a href="https://www.unam.mx/acerca-de-la-unam/rector" target="_blank" rel="noopener">Página del Rector</a>
+            <a href="https://www.unam.mx/acerca-de-la-unam/consejo-universitario" target="_blank" rel="noopener">Consejo Universitario</a>
+          </div>
+        </div>
+      </nav>
+
+      <button class="menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="nav-mobile" aria-label="Abrir menú">
+        <svg class="ic" aria-hidden="true"><use href="#i-list"/></svg>
+      </button>
+    </div>
+
+    <nav class="nav-mobile" id="nav-mobile" aria-label="Navegación principal móvil">
+      <a href="https://www.unam.mx/comunidad" target="_blank" rel="noopener">Comunidad <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      <a href="https://www.unam.mx/academicos" target="_blank" rel="noopener">Académicos <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      <a href="https://www.unam.mx/oferta-educativa" target="_blank" rel="noopener">Oferta Educativa <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      <a href="https://www.unam.mx/investigacion" target="_blank" rel="noopener">Investigación <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      <a href="https://www.unam.mx/cultura" target="_blank" rel="noopener">Cultura <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      <a href="https://www.unam.mx/deportes" target="_blank" rel="noopener">Deportes <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      <a href="https://www.unam.mx/acerca-de-la-unam" target="_blank" rel="noopener">Acerca de la UNAM <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+
+<!-- ============ HERO + OMNIBOX ============ -->
+<section class="hero">
+  <div class="wrap">
+    <p class="hero-lema">"Por mi raza hablará el espíritu"</p>
+    <h1>Toda la UNAM, en una sola pregunta.</h1>
+    <p class="hero-sub num">Más de 368 mil estudiantes, más de 30 facultades y escuelas y 133 licenciaturas — con una sola puerta de entrada inteligente a trámites, becas, admisiones y vida universitaria.</p>
+
+    <div class="omnibox-shell">
+      <!-- Hook del asistente (Prompt 4): form#omnibox + #omnibox-results. No modificar los IDs. -->
+      <form id="omnibox" class="omnibox-form" role="search" aria-label="Asistente UNAM Inteligente">
+        <svg class="ic" aria-hidden="true"><use href="#i-magnifying-glass"/></svg>
+        <input id="omnibox-input" class="omnibox-input" type="text" name="q" placeholder="Pregunta lo que sea: trámites, becas, admisiones…" aria-label="Pregunta lo que sea: trámites, becas, admisiones" autocomplete="off">
+        <button class="omnibox-btn" type="submit">
+          Preguntar
+          <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </button>
+      </form>
+      <div class="omnibox-sugerencias" aria-label="Preguntas sugeridas">
+        <button class="sugerencia" type="button" data-q="¿Cuánto tarda la emisión de mi título?">¿Cuánto tarda mi título?</button>
+        <button class="sugerencia" type="button" data-q="¿Qué becas puedo solicitar este semestre?">¿Qué becas puedo solicitar?</button>
+        <button class="sugerencia" type="button" data-q="¿Cuándo inicia el ciclo escolar 2026-2027?">¿Cuándo inicia el ciclo escolar?</button>
+        <button class="sugerencia" type="button" data-q="¿Cómo saco una constancia de homologación?">Constancia de homologación</button>
+      </div>
+      <div id="omnibox-results" aria-live="polite"></div>
+      <p class="omnibox-nota">
+        <svg class="ic ic--sm" aria-hidden="true"><use href="#i-shield-check"/></svg>
+        Cada respuesta cita su fuente oficial: dgae.unam.mx, becarios.unam.mx, dgcs.unam.mx y más.
+      </p>
+    </div>
+
+    <div class="hero-stats num" aria-label="La UNAM en cifras oficiales">
+      <div class="stat"><b>+368 mil</b><span>estudiantes en 2026 (Gaceta UNAM)</span></div>
+      <div class="stat"><b>133</b><span>licenciaturas en 4 áreas del conocimiento</span></div>
+      <div class="stat"><b>+30</b><span>facultades y escuelas</span></div>
+      <div class="stat"><b>140</b><span>bibliotecas · 7.6 millones de volúmenes</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOY… ============ -->
+<section class="section" id="soy">
+  <div class="wrap">
+    <p class="eyebrow">Acceso por perfil</p>
+    <h2 class="section-title">Soy…</h2>
+    <div class="paths">
+      <a class="card path-card reveal" href="#admisiones">
+        <span class="icon-chip"><svg class="ic ic--lg" aria-hidden="true"><use href="#i-graduation-cap"/></svg></span>
+        <h3>Aspirante</h3>
+        <p>Convocatoria, fechas, costo del examen y cómo protegerte de fraudes.</p>
+        <span class="ir">Ver admisiones <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+      </a>
+      <a class="card path-card reveal" href="#becas">
+        <span class="icon-chip"><svg class="ic ic--lg" aria-hidden="true"><use href="#i-book-open"/></svg></span>
+        <h3>Estudiante</h3>
+        <p>Becas con montos reales, calendario escolar y servicios universitarios.</p>
+        <span class="ir">Ver becas y apoyos <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+      </a>
+      <a class="card path-card reveal" href="#docentes">
+        <span class="icon-chip"><svg class="ic ic--lg" aria-hidden="true"><use href="#i-chats-circle"/></svg></span>
+        <h3>Docente</h3>
+        <p>Aulas virtuales, estímulos académicos y servicios para la docencia.</p>
+        <span class="ir">Ver servicios docentes <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+      </a>
+      <a class="card path-card reveal" href="#tramites">
+        <span class="icon-chip"><svg class="ic ic--lg" aria-hidden="true"><use href="#i-scroll"/></svg></span>
+        <h3>Egresado</h3>
+        <p>Título, constancias, certificaciones y homologación con tiempos oficiales.</p>
+        <span class="ir">Ver trámites <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRÁMITES ============ -->
+<section class="section" id="tramites">
+  <div class="wrap">
+    <p class="eyebrow">Trámites y titulación</p>
+    <h2 class="section-title">Los trámites más buscados, con su tiempo oficial</h2>
+    <p class="section-lead">Ordenados por lo que la comunidad más pregunta. Cada dato proviene de la página oficial de la DGAE.</p>
+    <div class="tramites-grid">
+
+      <div class="card reveal">
+        <div class="tramite-head">
+          <span class="icon-chip"><svg class="ic" aria-hidden="true"><use href="#i-scroll"/></svg></span>
+          <span class="tramite-tiempo num">25 días hábiles</span>
+        </div>
+        <h3>Emisión de título y grado</h3>
+        <p class="desc">El proceso inicia cuando tu plantel entrega la carpeta de titulación a la Dirección de Certificación y Control Documental. Cita oficial: "a los 25 días hábiles posteriores a la fecha de recepción de la carpeta".</p>
+        <div class="meta">
+          <div><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg><span>Inicia en Servicios Escolares de tu plantel</span></div>
+          <div><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><span>Seguimiento: "Consulta Trámite de Titulación y Graduación" en escolar.unam.mx</span></div>
+        </div>
+        <p class="fuente">Fuente: dgae.unam.mx</p>
+      </div>
+
+      <div class="card reveal">
+        <div class="tramite-head">
+          <span class="icon-chip"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg></span>
+          <span class="tramite-tiempo num">3 días hábiles</span>
+        </div>
+        <h3>Constancia de título o grado en trámite</h3>
+        <p class="desc">Comprueba ante cualquier instancia que tu título está en elaboración. "El tiempo aproximado para elaborarla y entregarla es de tres días hábiles".</p>
+        <div class="meta">
+          <div><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg><span>TRAMITEL — Dirección de Certificación y Control Documental, CU</span></div>
+          <div><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><span>Lunes a viernes de 09:00 a 15:00 y de 17:00 a 18:00</span></div>
+        </div>
+        <p class="fuente">Fuente: dgae.unam.mx</p>
+      </div>
+
+      <div class="card reveal">
+        <div class="tramite-head">
+          <span class="icon-chip"><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg></span>
+          <span class="tramite-tiempo num">3 días hábiles</span>
+        </div>
+        <h3>Constancia de homologación</h3>
+        <p class="desc">Verifica que tu título o grado fue emitido por la UNAM. "Si contamos con tus datos en el sistema, en tres días hábiles podremos entregártela". Debe llevar destinatario definido: no puede ir dirigida "A QUIEN CORRESPONDA".</p>
+        <div class="meta">
+          <div><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg><span>Departamento de TRAMITEL (DCyCD), Ciudad Universitaria</span></div>
+        </div>
+        <p class="fuente">Fuente: dgae.unam.mx</p>
+      </div>
+
+      <div class="card reveal">
+        <div class="tramite-head">
+          <span class="icon-chip"><svg class="ic" aria-hidden="true"><use href="#i-file-text"/></svg></span>
+          <span class="tramite-tiempo num">2 a 5 días hábiles</span>
+        </div>
+        <h3>Certificación de copias</h3>
+        <p class="desc">Certifica títulos, diplomas, grados, actas y certificados para requerimientos laborales o de otra universidad. "El tiempo para certificación de estos documentos de 2 a 5 días hábiles" (5 para trámites al extranjero).</p>
+        <div class="meta">
+          <div><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg><span>DCyCD — presenta original y copia en blanco y negro tamaño carta</span></div>
+        </div>
+        <p class="fuente">Fuente: dgae.unam.mx</p>
+      </div>
+
+      <div class="card reveal">
+        <div class="tramite-head">
+          <span class="icon-chip"><svg class="ic" aria-hidden="true"><use href="#i-file-text"/></svg></span>
+          <span class="tramite-tiempo num">$100.00 por certificado</span>
+        </div>
+        <h3>Certificado de estudios de posgrado</h3>
+        <p class="desc">Ficha de pago personalizada por "$100.00, por cada certificado" vía SIGEREL. Se solicita por correo a certificados_posgrado@dgae.unam.mx.</p>
+        <div class="meta">
+          <div><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg><span>Subdirección de Asuntos Escolares de Posgrado, edificio G, Unidad de Posgrado, CU</span></div>
+        </div>
+        <p class="fuente">Fuente: dgae.unam.mx</p>
+      </div>
+
+      <div class="card reveal">
+        <div class="tramite-head">
+          <span class="icon-chip"><svg class="ic" aria-hidden="true"><use href="#i-warning-octagon"/></svg></span>
+          <span class="tramite-tiempo num">Requisito clave</span>
+        </div>
+        <h3>Fotografías para título y certificados</h3>
+        <p class="desc">Para el título: "6 fotografías tamaño Título, recientes, ovaladas (6 x 9 cm), en blanco y negro… impresas en papel mate", sin retoque. Para certificados: "cuatro fotografías recientes tamaño credencial (ovaladas)".</p>
+        <div class="meta">
+          <div><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><span>El asistente te dice el formato exacto antes de ir a la ventanilla</span></div>
+        </div>
+        <p class="fuente">Fuente: dgae.unam.mx</p>
+      </div>
+
+    </div>
+
+    <div class="banda reveal">
+      <div>
+        <h3>Hoy, titularse implica tres sistemas con tres logins distintos: SIAE, SIGEREL y el sistema de citas.</h3>
+        <p>En este portal es una sola conversación: el asistente consulta el estado, genera tu referencia de pago y agenda tu cita — con la fuente oficial citada en cada paso.</p>
+      </div>
+      <span class="chip chip--oro"><svg class="ic ic--sm" aria-hidden="true"><use href="#i-robot"/></svg> Asistente 24/7 · respuestas con fuente</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADMISIONES ============ -->
+<section class="section" id="admisiones">
+  <div class="wrap">
+    <p class="eyebrow">Admisiones 2026</p>
+    <h2 class="section-title">Concurso de Selección: cifras y fechas oficiales</h2>
+    <p class="section-lead">Datos del Boletín UNAM-DGCS-413 (16 de julio de 2026) y de la Convocatoria de Licenciatura 2026.</p>
+    <div class="adm-grid">
+      <div>
+        <div class="adm-cifras">
+          <div class="card reveal">
+            <p class="beca-monto num">191,306</p>
+            <small>aspirantes inscritos en 2026</small>
+          </div>
+          <div class="card reveal">
+            <p class="beca-monto num">158,712</p>
+            <small>presentaron el examen</small>
+          </div>
+          <div class="card reveal">
+            <p class="beca-monto num">50,113</p>
+            <small>estudiantes de primer ingreso 2026-2027</small>
+          </div>
+          <div class="card reveal">
+            <p class="beca-monto num">$490.00</p>
+            <small>costo del derecho a examen</small>
+          </div>
+        </div>
+        <p class="fuente" style="margin-top:1rem;">21,962 ingresan por Concurso de Selección y 28,151 por Pase Reglamentado. Fuente: dgcs.unam.mx, boletín 2026_413.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Fechas del ciclo 2026</h3>
+        <ul class="fechas-lista num">
+          <li><b>12 ene</b> Publicación de la convocatoria</li>
+          <li><b>23 ene – 3 feb</b> Registro por Internet (hasta las 16:00)</li>
+          <li><b>23 may – 10 jun</b> Examen de selección en línea — primer concurso 100% en línea</li>
+          <li><b>17 jul</b> Publicación de resultados en www.dgae.unam.mx</li>
+          <li><b>27 – 31 jul</b> Entrega documental de personas seleccionadas</li>
+        </ul>
+        <p class="fuente" style="margin-top:1rem;">Requisito: bachillerato concluido con promedio mínimo de 7.0. Fuente: convocatoria oficial, repositorio.dgae.unam.mx</p>
+      </div>
+    </div>
+
+    <div class="alerta reveal">
+      <h3><svg class="ic" aria-hidden="true"><use href="#i-warning-octagon"/></svg> Aviso oficial contra fraudes</h3>
+      <blockquote>"La UNAM no tiene acuerdos ni convenios con instituciones u organizaciones que ofrecen cursos de preparación para el examen de selección… La única forma de ingresar a la UNAM es mediante la participación en este concurso de selección."</blockquote>
+      <p class="fuente">Convocatoria Licenciatura 2026, sección Avisos. Herramienta oficial y gratuita de preparación: plataforma Pruéb@te UNAM.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BECAS ============ -->
+<section class="section" id="becas">
+  <div class="wrap">
+    <p class="eyebrow">Becas y apoyos</p>
+    <h2 class="section-title">Montos reales, requisitos reales</h2>
+    <p class="section-lead">301,990 estudiantes recibieron una beca en el ciclo 2024-2025. El catálogo 2025-2026 reúne 21 programas en becarios.unam.mx; toda solicitud se hace en el Sistema INTEGRA (integra.unam.mx).</p>
+    <div class="becas-grid">
+
+      <div class="card reveal">
+        <span class="chip">Manutención</span>
+        <p class="beca-monto num">$3,600 <small>pago único · febrero–mayo 2026</small></p>
+        <p class="desc">Beca Manuela Garín Pinillos 2026-2. Promedio general mínimo de 7.00; registro del 18 de marzo al 6 de abril de 2026.</p>
+        <p class="fuente">Fuente: becarios.unam.mx (convocatoria oficial en PDF)</p>
+      </div>
+
+      <div class="card reveal">
+        <span class="chip">Excelencia</span>
+        <p class="beca-monto num">$5,700 <small>pago único · semestre 2026-2</small></p>
+        <p class="desc">Becas FAEL y Alta Exigencia Académica 2026-2. Promedio general igual o mayor a 8.5.</p>
+        <p class="fuente">Fuente: becarios.unam.mx (convocatoria oficial en PDF)</p>
+      </div>
+
+      <div class="card reveal">
+        <span class="chip">Mujeres Universitarias</span>
+        <p class="beca-monto num">$5,700 <small>pago único · semestre 2026-2</small></p>
+        <p class="desc">Beca Julieta Norma Fierro Gossman 2026-2. Promedio igual o mayor a 8.5 e ingreso familiar de hasta 9 salarios mínimos.</p>
+        <p class="fuente">Fuente: becarios.unam.mx (convocatoria oficial en PDF)</p>
+      </div>
+
+      <div class="card reveal">
+        <span class="chip">Grupos Vulnerables</span>
+        <p class="beca-monto num">$10,000 <small>hasta, en dos exhibiciones · 2026-2 y 2027-1</small></p>
+        <p class="desc">Promedio general mínimo de 8.00 (excepto primer ingreso). Pago vía Sistema INTEGRA.</p>
+        <p class="fuente">Fuente: becarios.unam.mx (convocatoria oficial en PDF)</p>
+      </div>
+
+      <div class="card reveal">
+        <span class="chip">Alimentación</span>
+        <p class="beca-monto num">$3,600 <small>pago único · febrero–mayo 2026</small></p>
+        <p class="desc">Beca Ifigenia Martínez 2026-2, para gastos de alimentación. Promedio general mínimo de 7.00.</p>
+        <p class="fuente">Fuente: becarios.unam.mx (convocatoria oficial en PDF)</p>
+      </div>
+
+      <div class="card reveal">
+        <span class="chip">Deportistas</span>
+        <p class="beca-monto num">$6,000 <small>hasta, semestrales · 2026-1</small></p>
+        <p class="desc">Para integrantes de equipos representativos de la UNAM; asignación verificada por la DGDU.</p>
+        <p class="fuente">Fuente: becarios.unam.mx (convocatoria oficial en PDF)</p>
+      </div>
+
+    </div>
+
+    <div class="banda reveal">
+      <div>
+        <h3>"¿Ya les cayó?" no debería ser el sistema de seguimiento de una beca.</h3>
+        <p>Hoy el estado de los pagos se monitorea de manera informal entre estudiantes en redes. Aquí, el asistente te notifica el estado de tu solicitud y de tu pago, con fecha y fuente.</p>
+      </div>
+      <span class="chip chip--oro"><svg class="ic ic--sm" aria-hidden="true"><use href="#i-robot"/></svg> Seguimiento de becas en tiempo real</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOCENTES ============ -->
+<section class="section" id="docentes">
+  <div class="wrap">
+    <div class="docentes-band reveal">
+      <p class="eyebrow">Para docentes</p>
+      <h2 class="section-title">Servicios para la docencia, en un solo lugar</h2>
+      <p class="section-lead">Los servicios reales del portal unam.mx para el personal académico, unificados y consultables desde el asistente.</p>
+      <div class="docentes-links">
+        <a href="https://www.unam.mx/academicos/aulas-virtuales" target="_blank" rel="noopener">
+          <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          Aulas Virtuales
+        </a>
+        <a href="https://www.unam.mx/academicos/becas-estimulos-academicos" target="_blank" rel="noopener">
+          <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          Becas y Estímulos Académicos UNAM
+        </a>
+        <a href="https://www.unam.mx/academicos/calendario-academico" target="_blank" rel="noopener">
+          <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          Calendario Académico
+        </a>
+        <a href="https://www.unam.mx/academicos/servicios-docencia-tutoria" target="_blank" rel="noopener">
+          <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          Servicios para Docencia y Tutoría
+        </a>
+        <a href="https://www.unam.mx/academicos/cursos-docencia" target="_blank" rel="noopener">
+          <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          Cursos para la Docencia
+        </a>
+        <a href="https://www.unam.mx/academicos/tecnologia-docencia" target="_blank" rel="noopener">
+          <svg class="ic ic--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          Tecnología para la Docencia
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOTICIAS ============ -->
+<section class="section" id="noticias">
+  <div class="wrap">
+    <p class="eyebrow">Sala de prensa</p>
+    <h2 class="section-title">Noticias UNAM</h2>
+    <p class="section-lead">Titulares reales de los canales oficiales: boletines DGCS, Gaceta UNAM y UNAM Global.</p>
+    <div class="noticias-grid">
+
+      <div class="card noticia-card reveal">
+        <span class="noticia-fecha num">16/07/2026 · DGCS</span>
+        <h3><a href="https://www.dgcs.unam.mx/boletin/bdboletin/2026_413.html" target="_blank" rel="noopener">La UNAM publica mañana resultados y dará la bienvenida a más de 50 mil alumnas y alumnos de nuevo ingreso</a></h3>
+        <p class="desc">Este viernes 17 de julio la UNAM publica los resultados del Concurso de Selección de Ingreso a Licenciatura 2026: recibirá a 50,113 estudiantes de primer ingreso.</p>
+      </div>
+
+      <div class="card noticia-card reveal">
+        <span class="noticia-fecha num">06/07/2026 · DGCS</span>
+        <h3><a href="https://www.dgcs.unam.mx/boletin/bdboletin/2026_176.html" target="_blank" rel="noopener">Gana José Eduardo Méndez Delgado el Premio Princesa de Girona Internacional 2026</a></h3>
+        <p class="desc">Por sus contribuciones al estudio de la física y química de las nebulosas ionizadas, el investigador del Instituto de Astronomía fue proclamado ganador.</p>
+      </div>
+
+      <div class="card noticia-card reveal">
+        <span class="noticia-fecha num">10/06/2026 · DGCS</span>
+        <h3><a href="https://www.dgcs.unam.mx/boletin/bdboletin/2026_345.html" target="_blank" rel="noopener">La educación es la clave para salir del laberinto entre el neoliberalismo egoísta y el populismo autoritario: Rector Lomelí en la UNESCO</a></h3>
+        <p class="desc">El rector dictó la conferencia "Educación y desarrollo o el jardín de los senderos que se bifurcan" en la sede del organismo.</p>
+      </div>
+
+      <div class="card noticia-card reveal">
+        <span class="noticia-fecha num">25/05/2026 · DGCS</span>
+        <h3><a href="https://www.dgcs.unam.mx/boletin/bdboletin/2026_311.html" target="_blank" rel="noopener">La UNAM realiza la aplicación en línea de su examen de admisión para el ingreso a licenciatura 2026</a></h3>
+        <p class="desc">Durante la primera jornada de aplicación participaron 55,840 aspirantes; la participación fue mayor a la de 2025.</p>
+      </div>
+
+      <div class="card noticia-card reveal">
+        <span class="noticia-fecha num">03/02/2026 · DGCS</span>
+        <h3><a href="https://www.dgcs.unam.mx/boletin/bdboletin/2026_038.html" target="_blank" rel="noopener">La UNAM escala posiciones en el ranking mundial 2026</a></h3>
+        <p class="desc">Mejoró su desempeño en el World University Rankings by Subject 2026 de THE, particularmente en Derecho, Ciencias de la Vida, Artes y Humanidades.</p>
+      </div>
+
+      <div class="card noticia-card reveal">
+        <span class="noticia-fecha num">10/06/2026 · UNAM Global</span>
+        <h3><a href="https://unamglobal.unam.mx/global_revista/lluvias-mexico-2026-mas-intensas-unam/" target="_blank" rel="noopener">Lluvias en México han sido 15 % más intensas en lo que va de 2026</a></h3>
+        <p class="desc">Las lluvias registradas de enero a inicios de junio de 2026 han sido 15 % más intensas que el promedio climatológico.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ AGENDA ============ -->
+<section class="section" id="agenda">
+  <div class="wrap">
+    <p class="eyebrow">Cultura UNAM</p>
+    <h2 class="section-title">Agenda cultural · Música</h2>
+    <p class="section-lead">Próximos conciertos publicados por musica.unam.mx (agosto 2026). Boletos: boletoscultura.unam.mx.</p>
+    <ul class="agenda-lista">
+      <li class="reveal">
+        <div class="agenda-fecha num"><b>8</b><span>AGO</span></div>
+        <div><h3>Una tierra que mira al mar — Ensamble A Contratiempo</h3><p>Jazz en la UNAM</p></div>
+      </li>
+      <li class="reveal">
+        <div class="agenda-fecha num"><b>9</b><span>AGO</span></div>
+        <div><h3>Pavel Loaria Big Band infantil y juvenil</h3><p>Jazz en la UNAM</p></div>
+      </li>
+      <li class="reveal">
+        <div class="agenda-fecha num"><b>15</b><span>AGO</span></div>
+        <div><h3>80 aniversario Federico Ibarra Groth</h3><p>Música Actual</p></div>
+      </li>
+      <li class="reveal">
+        <div class="agenda-fecha num"><b>16</b><span>AGO</span></div>
+        <div><h3>Ensamble 5to Elemento</h3><p>Jazz en la UNAM</p></div>
+      </li>
+      <li class="reveal">
+        <div class="agenda-fecha num"><b>20</b><span>AGO</span></div>
+        <div><h3>The Spirit of Gambo — Música inglesa del siglo XVII</h3><p>Música antigua</p></div>
+      </li>
+      <li class="reveal">
+        <div class="agenda-fecha num"><b>22</b><span>AGO</span></div>
+        <div><h3>Sonata 1, Op. 120 y Trío en la menor, Op. 114 de Brahms</h3><p>Música comentada</p></div>
+      </li>
+      <li class="reveal">
+        <div class="agenda-fecha num"><b>23</b><span>AGO</span></div>
+        <div><h3>Trío Alberto Zuckermann</h3><p>Jazz en la UNAM</p></div>
+      </li>
+      <li class="reveal">
+        <div class="agenda-fecha num"><b>27</b><span>AGO</span></div>
+        <div><h3>FILUNI: Los sonidos de Latinoamérica</h3><p>Música de cámara</p></div>
+      </li>
+      <li class="reveal">
+        <div class="agenda-fecha num"><b>30</b><span>AGO</span></div>
+        <div><h3>Síntesis — Sebastián Domínguez Quartet</h3><p>Jazz en la UNAM</p></div>
+      </li>
+    </ul>
+    <div class="recintos">
+      <span class="chip">Sala Nezahualcóyotl</span>
+      <span class="chip">MUAC</span>
+      <span class="chip">Teatro Juan Ruiz de Alarcón</span>
+      <span class="chip">Foro Sor Juana Inés de la Cruz</span>
+      <span class="chip">Filmoteca UNAM</span>
+      <span class="chip">Museo Universitario del Chopo</span>
+      <span class="chip">Casa del Lago</span>
+      <span class="chip">CCU Tlatelolco</span>
+    </div>
+    <p class="fuente" style="margin-top:1rem;">La UNAM cuenta con 27 museos y 18 recintos históricos (Agenda Estadística UNAM 2025). Cartelera completa: cultura.unam.mx</p>
+  </div>
+</section>
+
+<!-- ============ VOZ ============ -->
+<section class="section voz" id="voz">
+  <div class="wrap">
+    <p class="eyebrow">Voz de la comunidad</p>
+    <h2 class="section-title">Lo pidieron los propios estudiantes</h2>
+    <p class="section-lead">Citas literales del social listening en redes públicas (2025).</p>
+    <div class="voz-grid">
+      <div class="verbatim reveal">
+        <blockquote>«¿Por qué no hay una app donde pueda ver cuánto debo, mi horario y mis calificaciones de un solo vistazo?»</blockquote>
+        <cite>Estudiante UNAM — Reddit, 2025</cite>
+      </div>
+      <div class="verbatim reveal">
+        <blockquote>«La desinformación en trámites es terrible, un chatbot que realmente sepa los requisitos ya te ahorraría la mitad de las vueltas.»</blockquote>
+        <cite>Comunidad UNAM — redes sociales, 2025</cite>
+      </div>
+    </div>
+    <p class="voz-cierre">Este portal es esa respuesta: una sola puerta de entrada en lenguaje natural, conectada a los sistemas que ya existen, con cada dato respaldado por su fuente oficial.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>Institución</h4>
+        <ul>
+          <li><a href="https://www.unam.mx/acerca-de-la-unam/que-es" target="_blank" rel="noopener">Qué es la UNAM</a></li>
+          <li><a href="https://www.unam.mx/acerca-de-la-unam/identidad" target="_blank" rel="noopener">Identidad UNAM</a></li>
+          <li><a href="https://www.unam.mx/acerca-de-la-unam/rector" target="_blank" rel="noopener">Página del Rector</a></li>
+          <li><a href="https://www.unam.mx/acerca-de-la-unam/consejo-universitario" target="_blank" rel="noopener">Consejo Universitario</a></li>
+          <li><a href="https://transparencia.unam.mx" target="_blank" rel="noopener">Transparencia</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Comunidad</h4>
+        <ul>
+          <li><a href="https://defensoria.unam.mx" target="_blank" rel="noopener">Defensoría de los Derechos Universitarios</a></li>
+          <li><a href="https://www.becarios.unam.mx" target="_blank" rel="noopener">Portal del Becario</a></li>
+          <li><a href="https://www.bidi.unam.mx" target="_blank" rel="noopener">Biblioteca Digital BiDi</a></li>
+          <li><a href="https://deporte.unam.mx" target="_blank" rel="noopener">Deporte UNAM</a></li>
+          <li><a href="https://cultura.unam.mx" target="_blank" rel="noopener">Cultura UNAM</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Medios oficiales</h4>
+        <ul>
+          <li><a href="https://www.gaceta.unam.mx" target="_blank" rel="noopener">Gaceta UNAM</a></li>
+          <li><a href="https://www.dgcs.unam.mx" target="_blank" rel="noopener">Boletines DGCS</a></li>
+          <li><a href="https://unamglobal.unam.mx" target="_blank" rel="noopener">UNAM Global</a></li>
+          <li><a href="https://tv.unam.mx" target="_blank" rel="noopener">TV UNAM</a></li>
+          <li><a href="https://radio.unam.mx" target="_blank" rel="noopener">Radio UNAM</a></li>
+          <li><a href="https://descargacultura.unam.mx" target="_blank" rel="noopener">Descarga Cultura</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sistemas escolares</h4>
+        <ul>
+          <li><a href="https://www.dgae-siae.unam.mx" target="_blank" rel="noopener">SIAE</a></li>
+          <li><a href="https://sigerel.dgae.unam.mx" target="_blank" rel="noopener">SIGEREL — pagos</a></li>
+          <li><a href="https://oferta.unam.mx" target="_blank" rel="noopener">Oferta Académica</a></li>
+          <li><a href="https://www.pruebate.unam.mx:8181/pruebate/faces/index.xhtml" target="_blank" rel="noopener">Pruéb@te UNAM</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <p>Hecho en México, Universidad Nacional Autónoma de México (UNAM), todos los derechos reservados 2015. Esta página puede ser reproducida con fines no lucrativos, siempre y cuando no se mutile, se cite la fuente completa y su dirección electrónica. De otra forma, requiere permiso previo por escrito de la institución.</p>
+      <p class="footer-demo-tag">Demo conceptual — SintelIA, julio 2026. Este sitio no es un portal oficial de la UNAM; todos los datos provienen de fuentes públicas oficiales citadas en cada sección.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+
+// Toggle menú móvil
+(function(){
+  var btn = document.getElementById('menu-toggle');
+  var nav = document.getElementById('nav-mobile');
+  if(!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+})();
+
+// Chips sugerencia → omnibox
+document.querySelectorAll('.sugerencia').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var input = document.getElementById('omnibox-input');
+    if(input){
+      input.value = btn.getAttribute('data-q') || '';
+      input.focus();
+    }
+  });
+});
+
+// Fallback omnibox — evita recarga
+document.getElementById('omnibox').addEventListener('submit', function(e){ e.preventDefault(); });
+
+// Reveals
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  // Red de seguridad: nada puede quedar invisible (iframes, capturas, observers pausados)
+  setTimeout(function(){
+    document.querySelectorAll('.reveal:not(.in)').forEach(function(el){ el.classList.add('in'); io.unobserve(el); });
+  }, 4000);
+})();
+</script>
+<script src="./asistente.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,383 @@
+/* ============================================================================
+   UNAM Inteligente — estilos de la capa IA (asistente.css)
+   Tokens compartidos con la demo: --unam-azul #002B7A · --unam-oro #D59F0F ·
+   --papel #FBF8F1 · display EB Garamond · cuerpo Geist Sans.
+   Con fallbacks locales por si se carga standalone (test QA).
+============================================================================ */
+
+:root {
+  --asist-azul: var(--unam-azul, #002B7A);
+  --asist-azul-deep: var(--unam-azul-deep, #001742);
+  --asist-oro: var(--unam-oro, #D59F0F);
+  --asist-oro-soft: var(--unam-oro-soft, #F3E3B3);
+  --asist-papel: var(--papel, #FBF8F1);
+  --asist-tinta: var(--tinta, #101A2E);
+  --asist-muted: var(--tinta-muted, #4A5568);
+  --asist-borde: var(--borde, rgba(0, 43, 122, .08));
+}
+
+/* ---------- card de respuesta (omnibox y chat) ---------- */
+
+.asist-card {
+  background: #fff;
+  border: 1px solid var(--asist-borde);
+  border-left: 3px solid var(--asist-oro);
+  border-radius: .9rem;
+  padding: 1.1rem 1.25rem 1rem;
+  box-shadow: 0 8px 30px rgba(0, 23, 66, .08);
+  text-align: left;
+  color: var(--asist-tinta);
+  transition: opacity .28s ease, transform .28s ease;
+}
+
+.asist-entrando {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.asist-card-titulo {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  color: var(--asist-azul-deep);
+  margin: 0 0 .5rem;
+}
+
+.asist-card-cuerpo {
+  font-size: .92rem;
+  line-height: 1.6;
+}
+
+.asist-card-cuerpo p { margin: 0 0 .55rem; }
+.asist-card-cuerpo p:last-child { margin-bottom: 0; }
+
+.asist-card-cuerpo ul {
+  margin: 0 0 .55rem;
+  padding-left: 1.1rem;
+}
+
+.asist-card-cuerpo li { margin-bottom: .3rem; }
+.asist-card-cuerpo li::marker { color: var(--asist-oro); }
+
+.asist-card-cuerpo strong {
+  color: var(--asist-azul-deep);
+  font-weight: 600;
+}
+
+/* ---------- badge de fuente oficial ---------- */
+
+.asist-fuente {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: .65rem;
+  padding: .28rem .65rem;
+  font-size: .74rem;
+  font-weight: 500;
+  letter-spacing: .01em;
+  color: var(--asist-azul);
+  background: rgba(0, 43, 122, .055);
+  border: 1px solid rgba(0, 43, 122, .16);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.asist-fuente svg {
+  width: .8rem;
+  height: .8rem;
+  fill: var(--asist-azul);
+  flex: none;
+}
+
+/* ---------- chips de sugerencia / desambiguación ---------- */
+
+.asist-sugerencias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: .35rem;
+}
+
+.asist-chip {
+  min-height: 44px;
+  padding: .5rem .9rem;
+  font-family: inherit;
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--asist-azul);
+  background: #fff;
+  border: 1px solid rgba(0, 43, 122, .22);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .18s ease, border-color .18s ease;
+}
+
+.asist-chip:hover {
+  background: var(--asist-oro-soft);
+  border-color: var(--asist-oro);
+}
+
+/* ---------- dock flotante ---------- */
+
+.asist-dock {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .75rem;
+  font-family: 'Geist Sans', system-ui, sans-serif;
+}
+
+.asist-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  min-height: 52px;
+  padding: .8rem 1.2rem;
+  font-family: inherit;
+  font-size: .92rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--asist-azul);
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 23, 66, .3);
+  cursor: pointer;
+  transition: background .18s ease, transform .18s ease;
+}
+
+.asist-toggle:hover {
+  background: var(--asist-azul-deep);
+  transform: translateY(-1px);
+}
+
+.asist-toggle svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: var(--asist-oro);
+  flex: none;
+}
+
+/* ---------- panel de chat (estilo WhatsApp claro) ---------- */
+
+.asist-panel {
+  width: min(24rem, calc(100vw - 2rem));
+  height: min(33rem, calc(100dvh - 7rem));
+  display: flex;
+  flex-direction: column;
+  background: var(--asist-papel);
+  border: 1px solid var(--asist-borde);
+  border-radius: 1.1rem;
+  box-shadow: 0 24px 60px rgba(0, 23, 66, .25);
+  overflow: hidden;
+}
+
+/* el atributo hidden debe ganar a display:flex — sin esto el panel abre solo al cargar */
+.asist-panel[hidden] {
+  display: none;
+}
+
+.asist-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  padding: .85rem 1.1rem;
+  background: var(--asist-azul-deep);
+  color: #fff;
+}
+
+.asist-head-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.asist-head-info strong {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.asist-head-info span {
+  font-size: .72rem;
+  color: var(--asist-oro-soft);
+}
+
+.asist-cerrar {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: transparent;
+  border: none;
+  border-radius: .6rem;
+  cursor: pointer;
+}
+
+.asist-cerrar:hover { background: rgba(255, 255, 255, .12); }
+
+.asist-cerrar svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.asist-msgs {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem .9rem;
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+  background:
+    radial-gradient(rgba(0, 43, 122, .035) 1px, transparent 1px) 0 0 / 18px 18px,
+    var(--asist-papel);
+}
+
+.asist-msg {
+  max-width: 88%;
+  border-radius: .9rem;
+  font-size: .88rem;
+  line-height: 1.55;
+}
+
+.asist-msg--user {
+  align-self: flex-end;
+  padding: .6rem .85rem;
+  background: var(--asist-azul);
+  color: #fff;
+  border-bottom-right-radius: .25rem;
+}
+
+.asist-msg--bot {
+  align-self: flex-start;
+  max-width: 96%;
+  border-bottom-left-radius: .25rem;
+}
+
+/* dentro del chat las cards se aligeran */
+.asist-msg--bot .asist-card {
+  box-shadow: none;
+  border-radius: .9rem;
+  border-bottom-left-radius: .25rem;
+  padding: .85rem .95rem .8rem;
+}
+
+.asist-msg--bot > p { margin: 0 0 .45rem; }
+
+.asist-msg--bot:not(:has(.asist-card)) {
+  background: #fff;
+  border: 1px solid var(--asist-borde);
+  padding: .7rem .9rem;
+}
+
+.asist-form {
+  display: flex;
+  gap: .5rem;
+  padding: .7rem .8rem;
+  background: #fff;
+  border-top: 1px solid var(--asist-borde);
+}
+
+.asist-form input {
+  flex: 1;
+  min-height: 44px;
+  padding: .55rem .9rem;
+  font-family: inherit;
+  font-size: .9rem;
+  color: var(--asist-tinta);
+  background: var(--asist-papel);
+  border: 1px solid rgba(0, 43, 122, .18);
+  border-radius: 999px;
+}
+
+.asist-form input::placeholder { color: var(--asist-muted); }
+
+.asist-form input:focus {
+  outline: none;
+  border-color: var(--asist-azul);
+  box-shadow: 0 0 0 3px rgba(0, 43, 122, .12);
+}
+
+.asist-form button {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--asist-oro);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background .18s ease;
+}
+
+.asist-form button:hover { background: #b8890c; }
+
+.asist-form button svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: var(--asist-azul-deep);
+}
+
+/* ---------- accesibilidad ---------- */
+
+.asist-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* foco visible coherente con la demo (fallback si la página no lo define) */
+.asist-dock :focus-visible,
+.asist-card :focus-visible {
+  outline: 3px solid var(--asist-oro);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .asist-card,
+  .asist-toggle,
+  .asist-chip,
+  .asist-form button {
+    transition: none;
+  }
+  .asist-entrando {
+    opacity: 1;
+    transform: none;
+  }
+  .asist-toggle:hover { transform: none; }
+}
+
+/* ---------- móvil ---------- */
+
+@media (max-width: 480px) {
+  .asist-dock {
+    right: .75rem;
+    bottom: .75rem;
+  }
+  .asist-toggle-txt { display: none; }
+  .asist-toggle {
+    width: 56px;
+    height: 56px;
+    justify-content: center;
+    padding: 0;
+  }
+  .asist-panel {
+    width: calc(100vw - 1.5rem);
+    height: min(30rem, calc(100dvh - 6rem));
+  }
+}
